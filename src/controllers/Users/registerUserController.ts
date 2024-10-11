@@ -17,7 +17,11 @@ class RegisterUserController {
      
         const userRegister = new RegisterUserService()
         const newUser = await userRegister.execute({name,email,password})
-        res.json(newUser)
+    
+        res.json({
+            message: "Cadastro realizado com sucesso",
+            ...newUser
+        })
     }
 }
 
