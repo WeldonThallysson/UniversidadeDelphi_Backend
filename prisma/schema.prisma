@@ -13,69 +13,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Users {
-  id String @id @default(uuid())
-  name String 
-  email String
-  password String 
-  masterAccess Boolean? @default(false)
-  courses Courses[]
-  class Class[]
-  category Category[]
-  status Boolean? @default(true)
-  created_At DateTime? @default(now())
+  id           String     @id @default(uuid())
+  name         String
+  email        String
+  password     String
+  masterAccess Boolean?   @default(false)
+  courses      Courses[]
+  class        Class[]
+  category     Category[]
+  status       Boolean?   @default(true)
+  created_At   DateTime?  @default(now())
+
   @@map("users")
 }
 
 model Category {
-   id String @id @default(uuid())
-   id_author String
-   users Users @relation(fields: [id_author], references: [id])
-   name String
-   tag String
-   description String
-   status Boolean? @default(true)
-   courses Courses[]
-   class Class[]
-   created_At DateTime? @default(now())
-  
- @@map("category")
+  id          String    @id @default(uuid())
+  id_author   String
+  users       Users     @relation(fields: [id_author], references: [id])
+  name        String
+  tag         String
+  description String
+  status      Boolean?  @default(true)
+  courses     Courses[]
+  class       Class[]
+  created_At  DateTime? @default(now())
+
+  @@map("category")
 }
-
-
 
 model Courses {
-  id String @id @default(uuid())
-  id_author String
+  id          String  @id @default(uuid())
+  id_author   String
   category_id String
-  name String
+  name        String
   description String
-  urlImage String
-  class Class[]
-  users Users @relation(fields: [id_author], references: [id])
-  category Category @relation(fields: [category_id], references: [id])
-  status Boolean? @default(true)
- @@map("courses")
+  urlImage    String
+  class       Class[]
+  data       String?
+  status     Boolean? @default(true)
+  created_At DateTime @default(now())
+  users      Users    @relation(fields: [id_author], references: [id])
+  category   Category @relation(fields: [category_id], references: [id])
+ 
+  @@map("courses")
 }
 
-
 model Class {
-  id String @id @default(uuid())
-  id_author String 
-  id_course String?
+  id          String   @id @default(uuid())
+  id_author   String
+  id_course   String?
   id_category String
-  users Users @relation(fields: [id_author], references: [id])
-  category Category @relation(fields: [id_category], references: [id])
-  courses Courses? @relation(fields: [id_course], references: [id])
-  name String 
+  name        String
   description String
-  urlImage String
-  urlVideo String
-  idURLVideo String?
-  tutor String?
-  tag String
-
-  status Boolean? @default(true)
+  urlImage    String
+  urlVideo    String
+  idURLVideo  String?
+  tutor       String?
+  tag         String
+  data        String?
+  status      Boolean? @default(true)
+  created_At  DateTime @default(now())
+  users       Users    @relation(fields: [id_author], references: [id])
+  category    Category @relation(fields: [id_category], references: [id])
+  courses     Courses? @relation(fields: [id_course], references: [id])
   @@map("class")
 }

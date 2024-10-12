@@ -9,7 +9,7 @@ class GetDetailsCategoryController {
     const getDetailsCategory = new GetDetailsCategoryService();
     const responseGetDetailsCategory = await getDetailsCategory.execute({id});
 
-    return res.json(responseGetDetailsCategory);
+    return res.status(responseGetDetailsCategory.status).json(responseGetDetailsCategory.data);
   }
 }
 

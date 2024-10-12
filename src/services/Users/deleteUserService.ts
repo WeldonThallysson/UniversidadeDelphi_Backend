@@ -7,7 +7,10 @@ interface IEditAllUserService {
 class DeleteUsersService {
   async execute({ id }: IEditAllUserService) {
     if(!id){
-        throw new Error("Para realizar esta ação, informe o id usuário.")
+      return {
+        message: "Para realizar esta ação, informe o id usuário.",
+        status: 400,
+      }
     }
 
     const userExists = await prismaClient.users.findFirst({
@@ -17,7 +20,10 @@ class DeleteUsersService {
     })
 
     if(!userExists){
-      throw new Error("Esse usuário já foi deletado!")
+      return {
+        message: "Não foi possivel deletar,esse usuário não existe!",
+        status: 400,
+      }
     }
 
      await prismaClient.users.delete({

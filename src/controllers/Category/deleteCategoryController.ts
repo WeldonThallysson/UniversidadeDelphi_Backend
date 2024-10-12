@@ -8,7 +8,7 @@ class DeleteCategoryController {
     const deleteCategory = new DeleteCategoryService();
     const responseDeleteCategory = await deleteCategory.execute({id});
 
-    return res.json(responseDeleteCategory);
+    return res.status(responseDeleteCategory.status).json(responseDeleteCategory);
   }
 }
 

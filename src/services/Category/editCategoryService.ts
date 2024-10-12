@@ -13,7 +13,10 @@ class EditCategoryService {
     async execute({id, name, tag, description,status}: IEditCategoryService){
    
        if(name === '' && tag === "" && description === ""){
-          throw new Error('Para realizar essa ação, preencha os campos (nome, tag, description')
+        return {
+            message: "Para realizar essa ação, preencha os campos (nome, tag, descrição)",
+            status: 400,
+        }
        }
 
        const categoryExists = await prismaClient.category.findFirst({
@@ -23,7 +26,11 @@ class EditCategoryService {
        })
         
         if(!categoryExists){
-            throw new Error("Não foi possivel editar, essa categoria não existe !")
+            return {
+                message: "Não foi possivel editar, essa categoria não existe !",
+                status: 400,
+            }
+          
         }
 
         await prismaClient.category.update({

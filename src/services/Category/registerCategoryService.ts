@@ -18,7 +18,10 @@ class RegisterCategoryService {
         })
         
         if(categoryExists){
-            throw new Error("Essa categoria já existe !")
+            return {
+                message: "Não foi possivel cadastrar,essa categoria já existe !",
+                status: 400,
+            }
         }
 
         await prismaClient.category.create({
@@ -41,7 +44,7 @@ class RegisterCategoryService {
 
         return {
             message: "Categoria cadastrada com sucesso",
-            status: 200
+            status: 201
         }
     }
 }

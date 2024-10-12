@@ -3,8 +3,8 @@ import { GetAllCategoryService } from "../../services/Category/getAllCategorySer
 
 class GetAllCategoryController {
   async handle(req: Request, res: Response) {
-    const name  = req.query.name as string;
-    const tag  = req.query.tag as string;
+    const name = req.query.name as string;
+    const tag = req.query.tag as string;
     const description = req.query.description as string;
     
     const getAllCategory = new GetAllCategoryService();
@@ -14,7 +14,7 @@ class GetAllCategoryController {
       description,
     });
 
-    return res.json(responseGetAllCategory);
+    return res.status(responseGetAllCategory.status).json(responseGetAllCategory.data);
   }
 }
 

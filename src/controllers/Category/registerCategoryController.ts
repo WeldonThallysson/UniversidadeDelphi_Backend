@@ -3,19 +3,20 @@ import { RegisterCategoryService } from "../../services/Category/registerCategor
 
 class RegisterCategoryController {
   async handle(req: Request, res: Response) {
-    const { name, tag, description } = req.body;
+    const { name,tag, description } = req.body;
 
     const id_author = req.user_id;
 
     const registerCategory = new RegisterCategoryService();
-    const responseDeleteUser = await registerCategory.execute({
+    const responseRegisterCategory = await registerCategory.execute({
       id_author,
       name,
       tag,
       description,
+    
     });
 
-    return res.json(responseDeleteUser);
+    return res.status(responseRegisterCategory.status).json(responseRegisterCategory);
   }
 }
 

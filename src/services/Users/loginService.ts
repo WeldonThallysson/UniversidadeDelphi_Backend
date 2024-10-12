@@ -16,13 +16,19 @@ class LoginUserService {
     });
 
     if (!userExists) {
-      throw new Error("Este email não existe");
+      return {
+        message: "Este email não existe",
+        status: 400,
+      } 
     }
 
     const verifyPasswordHash = await compare(password, userExists.password);
 
     if (!verifyPasswordHash) {
-      throw new Error("Sua senha está incorreta");
+      return {
+        message: "Credenciais email ou senha incorretas.",
+        status: 400,
+      } 
     }
 
     const token = sign(
@@ -38,9 +44,12 @@ class LoginUserService {
     );
 
     return {
-        id: userExists.id,
-        email: userExists.email,
-        token: token
+        data: {
+          id: userExists.id,
+          email: userExists.email,
+          token: token,
+        },
+        status: 200,
     }
   }
 }

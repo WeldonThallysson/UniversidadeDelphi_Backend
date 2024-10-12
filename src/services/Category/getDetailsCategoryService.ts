@@ -13,7 +13,12 @@ class GetDetailsCategoryService {
     });
 
     if (!categoryExists) {
-      throw new Error("Essa categoria não existe!");
+      return {
+        data: {
+          message: "Essa categoria não existe!",
+        },
+        status: 400,
+     }
     }
 
     const categoryDetails = await prismaClient.category.findFirst({
@@ -31,7 +36,10 @@ class GetDetailsCategoryService {
       },
     });
 
-    return categoryDetails;
+    return {
+        data: categoryDetails, 
+        status: 200,
+     };
   }
 }
 

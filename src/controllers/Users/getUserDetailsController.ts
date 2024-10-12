@@ -9,7 +9,7 @@ class GetDetailsUsersController {
     const detailsUser = new GetDetailsUserService();
     const responseDetailsUser = await detailsUser.execute({user_id})
     
-     return res.json(responseDetailsUser);
+     return res.status(responseDetailsUser.status).json(responseDetailsUser.data);
   }
 }
 

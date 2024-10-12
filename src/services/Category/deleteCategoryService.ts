@@ -16,7 +16,10 @@ class DeleteCategoryService {
         })
         
         if(!categoryExists){
-            throw new Error("Essa categoria não existe!")
+            return {
+                message: "Não foi possivel deletar, essa categoria não existe!",
+                status: 400,
+            }
         }
 
         await prismaClient.category.delete({

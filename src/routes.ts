@@ -12,6 +12,10 @@ import { DeleteCategoryController } from "./controllers/Category/deleteCategoryC
 import { GetAllCategoryController } from "./controllers/Category/getAllCategoryController";
 import { GetDetailsCategoryController } from "./controllers/Category/getDetailsCategoryController";
 import { RegisterCourseController } from "./controllers/Courses/registerCourseController";
+import { GetAllCourseController } from "./controllers/Courses/getAllCourseController";
+import { GetDetailsCourseController } from "./controllers/Courses/getDetailsCourseController";
+import { EditCourseController } from "./controllers/Courses/editCourseController";
+import { DeleteCourseController } from "./controllers/Courses/deleteCourseController";
 
 
 const router = Router()
@@ -40,11 +44,11 @@ router.put('/category', isLogged, new EditCategoryController().handle) // endpoi
 router.delete('/category',isLogged, new DeleteCategoryController().handle) // endpoint para deletar uma categoria se tiver logado MasterAcesss true
 
 //endpoints para cadastrar cursos 
-router.get('/courses',) //endpoint para buscar todos os cursos com filtros sem precisar estar logado
-router.get('/courses/:id',) // endpoint para buscar o curso pelo id, sem precisar estar logado 
+router.get('/courses', new GetAllCourseController().handle) //endpoint para buscar todos os cursos com filtros sem precisar estar logado
+router.get('/courses/:id',  new GetDetailsCourseController().handle) // endpoint para buscar o curso pelo id, sem precisar estar logado 
 router.post('/courses',isLogged, new RegisterCourseController().handle) //endpoint para cadastrar um novo curso, passando o id da categoria e o id do author que está cadastrando se estiver logado com masterAccess True 
-router.put('/courses',isLogged) //endpoint para editar o curso cadastrado  se estiver logado com masterAccess True .
-router.delete('/courses',isLogged) // endpoint para deletar curso cadastrado  se estiver logado com masterAccess True 
+router.put('/courses',isLogged, new EditCourseController().handle) //endpoint para editar o curso cadastrado  se estiver logado com masterAccess True .
+router.delete('/courses',isLogged, new DeleteCourseController().handle) // endpoint para deletar curso cadastrado  se estiver logado com masterAccess True 
 
 //endpoints para cadastrar as aulas
 router.get('/class',) // endpoint para buscar todas as aulas com filtro para id_category e id_course sem precisar estar logado 

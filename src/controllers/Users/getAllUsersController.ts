@@ -11,7 +11,7 @@ class GetAllUsersController {
     const getUsers = new GetAllUserService()
     const resultGetUsers = await getUsers.execute({email,name})
     
-     return res.json(resultGetUsers);
+     return res.status(resultGetUsers.status).json(resultGetUsers.data);
   }
 }
 

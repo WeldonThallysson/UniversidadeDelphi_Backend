@@ -19,7 +19,7 @@ class EditUsersController {
       email,
       status})
     
-     return res.json(responseEditUser);
+     return res.status(responseEditUser.status).json(responseEditUser);
   }
 }
 

@@ -10,7 +10,10 @@ interface IEditAllUserService {
 class EditUsersService {
   async execute({ id, name, email, status }: IEditAllUserService) {
     if (name === "" || email === "") {
-      throw new Error("Error: Informe os dados obrigatórios (nome,email)");
+      return {
+        message: "Informe os dados obrigatórios (nome,email)",
+        status: 400,
+      }
     }
 
     const emailExists = await prismaClient.users.findFirst({
@@ -20,7 +23,10 @@ class EditUsersService {
     });
 
     if (emailExists) {
-      throw new Error("Esse email já existe, para editar o usuário tente outro email!");
+      return {
+        message: "Esse email já existe, para editar o usuário tente outro email!",
+        status: 400,
+      }
     }
 
     await prismaClient.users.update({

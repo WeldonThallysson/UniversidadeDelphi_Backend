@@ -15,7 +15,11 @@ class GetAllUserService {
     });
 
     if (!userExists) {
-        throw new Error("Esse usuário não existe!")
+      return {
+        message: "Esse usuário não existe!",
+        status: 400,
+      }
+  
     }
 
     const users = await prismaClient.users.findMany({
@@ -36,7 +40,10 @@ class GetAllUserService {
       },
     });
 
-    return users;
+    return {
+      data: users,
+      status: 200,
+    };
   }
 }
 

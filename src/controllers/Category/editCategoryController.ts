@@ -6,14 +6,14 @@ class EditCategoryController {
     const { id, name, tag, description } = req.body;
  
     const editCategory = new EditCategoryService();
-    const responseDeleteUser = await editCategory.execute({
+    const responseEditCategory = await editCategory.execute({
       id,
       name,
       tag,
       description,
     });
 
-    return res.json(responseDeleteUser);
+    return res.status(responseEditCategory.status).json(responseEditCategory);
   }
 }
 

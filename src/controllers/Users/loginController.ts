@@ -14,7 +14,7 @@ class LoginUserController {
         const users = await loginUser.execute({email,password})
         
 
-        return res.json(users)
+        return res.status(users.status).json(users.data)
     }
 
 }
