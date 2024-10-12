@@ -1,17 +1,26 @@
 import { Request, Response } from 'express'; 
-import { GetDetailsUserService } from '../../services/Users/getUserDetailsService copy'; 
-import { EditUserDetailsService } from '../../services/Users/editUserDetailsService';
+import { GetDetailsUserService } from '../../services/Users/getUserDetailsService'; 
+import { EditUsersService } from '../../services/Users/editUserService';
 
 
-class editUsersController {
+class EditUsersController {
   async handle(req: Request, res: Response) {
-    const {} = req.body;
+    const { 
+      id,
+      name,
+      email,
+      status,
+    } = req.body;
 
-    const editUser = new EditUserDetailsService();
-    const responseEditUser = await editUser.execute({user_id})
+    const editUser = new EditUsersService();
+    const responseEditUser = await editUser.execute({ 
+      id,
+      name,
+      email,
+      status})
     
      return res.json(responseEditUser);
   }
 }
 
-export { editUsersController };
+export { EditUsersController };

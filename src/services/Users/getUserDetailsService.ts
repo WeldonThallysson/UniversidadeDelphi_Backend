@@ -23,14 +23,15 @@ class GetDetailsUserService {
 
       select: {
         id: true,
-        email: true,
-        category: true,
-        class: true,
-        courses: true,
-        masterAccess: true,
-        status: true,
-        created_At: true,
         name: true,
+        email: true,
+        status: true,
+        masterAccess: true,
+        category: true,
+        courses: true,
+        class: true,
+        created_At: true,
+     
       },
     });
 

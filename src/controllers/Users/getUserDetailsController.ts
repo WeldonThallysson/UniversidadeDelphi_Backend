@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'; 
-import { GetDetailsUserService } from '../../services/Users/getUserDetailsService copy'; 
+import { GetDetailsUserService } from '../../services/Users/getUserDetailsService'; 
 
 
-class getDetailsUsersController {
+class GetDetailsUsersController {
   async handle(req: Request, res: Response) {
     const user_id = req.user_id;
 
@@ -13,4 +13,4 @@ class getDetailsUsersController {
   }
 }
 
-export { getDetailsUsersController };
+export { GetDetailsUsersController };

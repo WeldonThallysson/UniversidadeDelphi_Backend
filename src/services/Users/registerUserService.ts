@@ -23,7 +23,7 @@ class RegisterUserService {
         
         const passwordHash = await hash(password, 8)
          
-        const users = await prismaClient.users.create({
+         await prismaClient.users.create({
             data:{
                 name: name,
                 email: email,
@@ -37,7 +37,10 @@ class RegisterUserService {
             }
          })
 
-         return users
+         return {
+            message: "Cadastro realizado com sucesso!",
+            status: 200
+         }
     }
 }
 

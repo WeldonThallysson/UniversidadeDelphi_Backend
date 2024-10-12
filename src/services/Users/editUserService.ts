@@ -7,7 +7,7 @@ interface IEditAllUserService {
   status?: boolean;
 }
 
-class EditUserDetailsService {
+class EditUsersService {
   async execute({ id, name, email, status }: IEditAllUserService) {
     if (name === "" || email === "") {
       throw new Error("Error: Informe os dados obrigatórios (nome,email)");
@@ -20,34 +20,34 @@ class EditUserDetailsService {
     });
 
     if (emailExists) {
-      throw new Error("Esse email já existe!");
+      throw new Error("Esse email já existe, para editar o usuário tente outro email!");
     }
 
-    const userEdited = await prismaClient.users.update({
+    await prismaClient.users.update({
       where: {
         id: id,
       },
       data: {
-        id: id,
         name: name,
         email: email,
         status: status,
       },
       select: {
         id: true,
+        name: true,
         email: true,
-        category: true,
-        class: true,
-        courses: true,
         masterAccess: true,
         status: true,
         created_At: true,
-        name: true,
       },
     });
 
-    return userEdited;
+    return {
+      message: 'Usuário editado com sucesso!',
+      status: 200,
+   
+    };;
   }
 }
 
-export { EditUserDetailsService };
+export { EditUsersService };

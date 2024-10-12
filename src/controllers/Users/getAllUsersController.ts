@@ -3,7 +3,7 @@ import { GetAllUserService } from '../../services/Users/getAllUsersSevice';
 
 
 
-class getAllUsersController {
+class GetAllUsersController {
   async handle(req: Request, res: Response) {
     const name = req.query.name as string;
     const email = req.query.email as string;
@@ -15,4 +15,4 @@ class getAllUsersController {
   }
 }
 
-export { getAllUsersController };
+export { GetAllUsersController };
