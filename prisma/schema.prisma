@@ -28,40 +28,6 @@ model Users {
   @@map("users")
 }
 
-model Courses {
-  id String @id @default(uuid())
-  id_author String
-  users Users @relation(fields: [id_author], references: [id])
-  name String
-  description String
-  category_id String
-  class Class[]
-  categories Category @relation(fields: [category_id],references: [id])
-  status Boolean @default(true)
- @@map("courses")
-}
-
-
-model Class {
-  id String @id @default(uuid())
-  id_author String 
-  id_course String
-  id_category String
-  users Users @relation(fields: [id_author], references: [id])
-  category Category @relation(fields: [id_category], references: [id])
-  courses Courses @relation(fields: [id_course],references: [id])
-  name String 
-  description String
-  urlImage String
-  urlVideo String
-  idURLVideo String?
-  tutor String
-  tag String
-
-  status Boolean @default(true)
-  @@map("class")
-}
-
 model Category {
    id String @id @default(uuid())
    id_author String
@@ -69,7 +35,7 @@ model Category {
    name String
    tag String
    description String
-   status Boolean @default(true)
+   status Boolean? @default(true)
    courses Courses[]
    class Class[]
    created_At DateTime? @default(now())
@@ -78,3 +44,38 @@ model Category {
 }
 
 
+
+model Courses {
+  id String @id @default(uuid())
+  id_author String
+  category_id String
+  name String
+  description String
+  urlImage String
+  class Class[]
+  users Users @relation(fields: [id_author], references: [id])
+  category Category @relation(fields: [category_id], references: [id])
+  status Boolean? @default(true)
+ @@map("courses")
+}
+
+
+model Class {
+  id String @id @default(uuid())
+  id_author String 
+  id_course String?
+  id_category String
+  users Users @relation(fields: [id_author], references: [id])
+  category Category @relation(fields: [id_category], references: [id])
+  courses Courses? @relation(fields: [id_course], references: [id])
+  name String 
+  description String
+  urlImage String
+  urlVideo String
+  idURLVideo String?
+  tutor String?
+  tag String
+
+  status Boolean? @default(true)
+  @@map("class")
+}
