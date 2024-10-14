@@ -1,43 +1,71 @@
-import { Request,Response } from "express";
+import { Request, Response } from "express";
 import { EditClassService } from "../../services/Class/editClassService";
+import { UploadedFile } from "express-fileupload";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 class EditClassController {
-    async handle(req: Request, res: Response){
-    
-        const {
-            id,
-            id_course,
-            id_category,
-            name, 
-            description,
-            urlImage,
-            urlVideo,
-            idURLVideo,
-            tutor,
-            tag,
-            data,
-            status
-        } = req.body
+  async handle(req: Request, res: Response) {
+    const {
+      id,
+      id_course,
+      id_category,
+      name,
+      description,
+      urlVideo,
+      idURLVideo,
+      tutor,
+      tag,
+      data,
+      status,
+    } = req.body;
 
-        const editClass = new EditClassService();
+    const editClass = new EditClassService();
 
-        const responseEditClass = await editClass.execute({ 
-            id,
-            id_course,
-            id_category,
-            name, 
-            description,
-            urlImage,
-            urlVideo,
-            idURLVideo,
-            tutor,
-            tag,
-            data,
-            status
-        })
+    const file = req.files["urlImage"] as UploadedFile;
 
-        return res.status(responseEditClass.status).json(responseEditClass)
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).json({
+        message: "Error: urlImage não enviada.",
+        status: 400,
+      });
     }
+
+    const resultFile: UploadApiResponse = await new Promise(
+      (resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream({}, function (err, result) {
+            if (err) {
+              reject(err);
+              return;
+            }
+            resolve(result);
+          })
+          .end(file.data);
+      }
+    );
+
+    const responseEditClass = await editClass.execute({
+      id,
+      id_course,
+      id_category,
+      name,
+      description,
+      urlImage: resultFile.url,
+      urlVideo,
+      idURLVideo,
+      tutor,
+      tag,
+      data,
+      status,
+    });
+
+    return res.status(responseEditClass.status).json(responseEditClass);
+  }
 }
 
-export {EditClassController}
+export { EditClassController };

@@ -40,7 +40,6 @@ router.get('/users/:id',isLogged, new GetDetailsUsersController().handle) // end
 router.put('/users', isLogged, new EditUsersController().handle)
 router.delete("/users/:id", isLogged, new DeleteUsersController().handle )
 
-
 // rotas para cadastrar uma categoria 
 router.get('/category', new GetAllCategoryController().handle) // endpoint para buscar as categorias sem precisar estar logado pois o front irá fazer esse get com os filtros 
 router.get('/category/:id', new GetDetailsCategoryController().handle ) // endpoint para buscar as categorias sem precisar estar logado pois o front irá fazer esse get com os filtros
