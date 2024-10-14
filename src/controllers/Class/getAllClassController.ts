@@ -1,5 +1,4 @@
-import { Request,Response } from "express";
-import { RegisterClassService } from "../../services/Class/registerClassService";
+import { Request,Response } from "express"; 
 import { GetAllClassService } from "../../services/Class/getAllClassService";
  
 class GetAllClassController {

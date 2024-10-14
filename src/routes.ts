@@ -16,6 +16,11 @@ import { GetAllCourseController } from "./controllers/Courses/getAllCourseContro
 import { GetDetailsCourseController } from "./controllers/Courses/getDetailsCourseController";
 import { EditCourseController } from "./controllers/Courses/editCourseController";
 import { DeleteCourseController } from "./controllers/Courses/deleteCourseController";
+import { DeleteClassController } from "./controllers/Class/deleteClassController";
+import { EditClassController } from "./controllers/Class/editClassController";
+import { RegisterClassController } from "./controllers/Class/registerClassController";
+import { GetDetailsClassController } from "./controllers/Class/getDetailsClassController";
+import { GetAllClassController } from "./controllers/Class/getAllClassController";
 
 
 const router = Router()
@@ -51,10 +56,10 @@ router.put('/courses',isLogged, new EditCourseController().handle) //endpoint pa
 router.delete('/courses',isLogged, new DeleteCourseController().handle) // endpoint para deletar curso cadastrado  se estiver logado com masterAccess True 
 
 //endpoints para cadastrar as aulas
-router.get('/class',) // endpoint para buscar todas as aulas com filtro para id_category e id_course sem precisar estar logado 
-router.get('/class/:id',) // endpoint para buscar os detalhes da aula sem precisar estar logado
-router.post('/class', isLogged) //enpoint para cadastra a aula com o id_course se tiver, pode ir em branco, id_category obrigatorio e id_author que é o id do usuário logado isso já vai daqui da api masterAcesss true 
-router.put('/class', isLogged) // endpoint para editar a aula podendo alterar ao id_category e o id_course, se o usuário estiver logado já passa o id dele como id_author masterAcesss true
-router.delete('/class', isLogged) //endpoint para deletar aula se estiver logado e com o masterAcesss true
+router.get('/class', new GetAllClassController().handle) // endpoint para buscar todas as aulas com filtro para id_category e id_course sem precisar estar logado 
+router.get('/class/:id', new GetDetailsClassController().handle) // endpoint para buscar os detalhes da aula sem precisar estar logado
+router.post('/class', isLogged, new RegisterClassController().handle) //enpoint para cadastra a aula com o id_course se tiver, pode ir em branco, id_category obrigatorio e id_author que é o id do usuário logado isso já vai daqui da api masterAcesss true 
+router.put('/class', isLogged, new EditClassController().handle) // endpoint para editar a aula podendo alterar ao id_category e o id_course, se o usuário estiver logado já passa o id dele como id_author masterAcesss true
+router.delete('/class', isLogged, new DeleteClassController().handle) //endpoint para deletar aula se estiver logado e com o masterAcesss true
 
 export {router}
