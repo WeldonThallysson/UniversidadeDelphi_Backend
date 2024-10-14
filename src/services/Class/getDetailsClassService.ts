@@ -10,9 +10,25 @@ class GetDetailsClassService {
   }: IGetDetailsClassService) {
 
   
-      const getDetailsClass = await prismaClient.courses.findFirst({
+      const getDetailsClass = await prismaClient.class.findFirst({
         where: {
           id
+        },
+        select:{
+            id: true,
+            name: true,
+            description: true,
+            data: true,
+            tag: true,
+            tutor: true,
+            urlVideo: true,
+            urlImage: true,
+            id_author: true,
+            idURLVideo: true,
+            id_course: true,
+            id_category: true,
+            status: true,
+            created_At: true,
         }
       });
 

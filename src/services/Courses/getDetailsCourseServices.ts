@@ -20,7 +20,7 @@ class GetDetailsCourseService {
            }
           }
       
-            const getDetailsCourse = await prismaClient.courses.findMany({
+            const getDetailsCourse = await prismaClient.courses.findFirst({
                 select: {
                     id: true,
                     name: true,

@@ -3,7 +3,7 @@ import { DeleteCourseService } from "../../services/Courses/deleteCourseService"
 
 class DeleteCourseController {
     async handle(req: Request, res: Response){
-        const { id} = req.params
+        const { id } = req.params
 
         const deleteCourse = new DeleteCourseService();
 

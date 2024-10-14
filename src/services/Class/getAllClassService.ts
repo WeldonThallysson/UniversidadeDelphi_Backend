@@ -53,18 +53,22 @@ class GetAllClassService {
         status: 200,
       };
     } else {
-      const getAllCourse = await prismaClient.courses.findMany({
+      const getAllCourse = await prismaClient.class.findMany({
         select: {
           id: true,
-          name: true,
-          description: true,
-          class: true,
-          data: true,
-          category_id: true,
-          id_author: true,
-          urlImage: true,
-          status: true,
-          created_At: true,
+            name: true,
+            description: true,
+            data: true,
+            tag: true,
+            tutor: true,
+            urlVideo: true,
+            urlImage: true,
+            id_author: true,
+            idURLVideo: true,
+            id_course: true,
+            id_category: true,
+            status: true,
+            created_At: true,
         },
       });
 
