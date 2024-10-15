@@ -11,7 +11,7 @@ class LoginUserService {
   async execute({ email, password }: ILoginUserType) {
     const userExists = await prismaClient.users.findFirst({
       where: {
-        email,
+        email: email,
       },
     });
 
