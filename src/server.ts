@@ -17,6 +17,7 @@ app.use(
 
 app.use(express.json());
 
+app.use(router);
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof Error) {
     return res.status(400).json({
@@ -29,7 +30,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.use(router);
 
 app.listen(process.env.PORT, () => {
     console.log("Servidor online");
