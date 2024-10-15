@@ -31,12 +31,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.use(router);
 
-app.listen(
-  {
-    host: "0.0.0.0",
-    port: process.env.PORT ? Number(process.env.PORT) : 3333,
-  },
-  () => {
+app.listen(process.env.PORT, () => {
     console.log("Servidor online");
   }
 );
