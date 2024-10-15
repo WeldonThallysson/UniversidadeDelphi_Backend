@@ -28,7 +28,9 @@ class LoginUserService {
 
     if (!verifyPasswordHash) {
       return {
-        message: "Credenciais email ou senha incorretas.",
+        data: {
+          message: "Credenciais email ou senha incorretas.",
+        },
         status: 400,
       } 
     }
