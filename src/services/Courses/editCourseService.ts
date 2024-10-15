@@ -21,6 +21,19 @@ class EditCourseService {
     status
   }: IEditCourseService) {
 
+    if (name === "" && description === "") {
+      return {
+        message: "Preencha os campos (nome, descrição)!",
+        status: 400,
+      };
+    }
+
+    if (category_id === "") {
+      return {
+        message: "Selecione a categoria do curso!",
+        status: 400,
+      };
+    }
     if (!id) {
       return {
         message: "Para realizar essa ação, preencha o campo (id)",
@@ -39,20 +52,7 @@ class EditCourseService {
         status: 400,
       };
     }
-
-    if (name === "" && description === "") {
-      return {
-        message: "Preencha os campos (nome, descrição)!",
-        status: 400,
-      };
-    }
-
-    if (category_id === "") {
-      return {
-        message: "Selecione a categoria do curso!",
-        status: 400,
-      };
-    }
+  
 
     await prismaClient.courses.update({
       where: {

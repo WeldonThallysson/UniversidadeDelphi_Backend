@@ -10,6 +10,15 @@ interface IRegisterCategoryService {
 
 class RegisterCategoryService {
     async execute({name, tag, description,id_author}: IRegisterCategoryService){
+        if (name === "" &&
+            description === "" &&
+            tag === "" ) {
+            return {
+              message: "Preencha os campos (nome, descrição, tag)!",
+              status: 400,
+            };
+          }
+          
          const categoryExists = await prismaClient.category.findFirst({
             where: {
                 name: name

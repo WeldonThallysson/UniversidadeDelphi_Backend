@@ -29,6 +29,24 @@ class EditClassService {
     data,
     status,
   }: IEditClassService) {
+    if (
+      name === "" &&
+      description === "" &&
+      urlImage === "" &&
+      urlVideo === ""
+    ) {
+      return {
+        message: "Preencha os campos (nome, descrição, urlImage e urlVideo)!",
+        status: 400,
+      };
+    }
+
+    if (id_category === "") {
+      return {
+        message: "Selecione a categoria da aula!",
+        status: 400,
+      };
+    }
 
     if (!id) {
       return {
@@ -50,24 +68,6 @@ class EditClassService {
       };
     }
 
-    if (
-      name === "" &&
-      description === "" &&
-      urlImage === "" &&
-      urlVideo === ""
-    ) {
-      return {
-        message: "Preencha os campos (nome, descrição, urlImage e urlVideo)!",
-        status: 400,
-      };
-    }
-
-    if (id_category === "") {
-      return {
-        message: "Selecione a categoria da aula!",
-        status: 400,
-      };
-    }
 
     await prismaClient.class.update({
       where: {
