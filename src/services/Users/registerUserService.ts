@@ -9,21 +9,23 @@ interface ISignUpService {
 
 class RegisterUserService {
   async execute({ name, email, password }: ISignUpService) {
+  
+    if (name === "" && email === "" && password === "") {
+      return {
+        message: "Verifique e preencha os campos nome, email, senha.",
+        status: 400,
+      };
+    }
+
     const userExists = await prismaClient.users.findFirst({
       where: {
         email: email,
       },
     });
+
     if (userExists) {
       return {
         message: "Esse email já está cadastrado, tente novamente.",
-        status: 400,
-      };
-    }
-
-    if (name === "" && email === "" && password === "") {
-      return {
-        message: "Verifique e preencha os campos nome, email, senha.",
         status: 400,
       };
     }

@@ -9,6 +9,13 @@ interface ILoginUserType {
 
 class LoginUserService {
   async execute({ email, password }: ILoginUserType) {
+
+    if ( email === "" && password === "") {
+      return {
+        message: "Verifique e preencha os campos (email, senha).",
+        status: 400,
+      };
+    }
     const userExists = await prismaClient.users.findFirst({
       where: {
         email: email,
