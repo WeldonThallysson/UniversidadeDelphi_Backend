@@ -1,0 +1,10 @@
+
+DATABASE_URL="postgresql://postgres:@THALLYsson19@localhost:5432/universidadedelphi?schema=public"
+JWT_SECRET="universidadedelphi"
+
+
+PORT=3333
+
+CLOUDINARY_NAME=dz8dkgjtn
+CLOUDINARY_KEY=658923423911484
+CLOUDINARY_SECRET=svqBGWyDRgSWhjF2Sc-mHqw-siA

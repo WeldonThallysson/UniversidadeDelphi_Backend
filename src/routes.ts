@@ -45,7 +45,7 @@ router.get('/category', new GetAllCategoryController().handle) // endpoint para 
 router.get('/category/:id', new GetDetailsCategoryController().handle ) // endpoint para buscar as categorias sem precisar estar logado pois o front irá fazer esse get com os filtros
 router.post('/category', isLogged, new RegisterCategoryController().handle) // endpoint para cadastrar categoria se estiver logado MasterAcesss true
 router.put('/category', isLogged, new EditCategoryController().handle) // endpoint para editar categoria se estiver logado MasterAcesss true
-router.delete('/category/:id',isLogged, new DeleteCategoryController().handle) // endpoint para deletar uma categoria se tiver logado MasterAcesss true
+router.delete('/category/:id', isLogged, new DeleteCategoryController().handle) // endpoint para deletar uma categoria se tiver logado MasterAcesss true
 
 //endpoints para cadastrar cursos 
 router.get('/courses', new GetAllCourseController().handle) //endpoint para buscar todos os cursos com filtros sem precisar estar logado

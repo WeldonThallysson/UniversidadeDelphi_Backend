@@ -7,6 +7,7 @@ interface IEditCourseService {
   description: string;
   urlImage: string;
   data: string;
+  status?: string
 }
 
 class EditCourseService {
@@ -17,7 +18,15 @@ class EditCourseService {
     description,
     urlImage,
     data,
+    status
   }: IEditCourseService) {
+
+    if (!id) {
+      return {
+        message: "Para realizar essa ação, preencha o campo (id)",
+        status: 400,
+      };
+    }
     const courseExists = await prismaClient.courses.findFirst({
       where: {
         id: id,
@@ -55,6 +64,7 @@ class EditCourseService {
         urlImage,
         category_id,
         data: data,
+        status: status === 'true' ? true : false
       },
     });
 

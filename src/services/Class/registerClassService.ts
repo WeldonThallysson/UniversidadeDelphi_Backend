@@ -27,6 +27,7 @@ class RegisterClassService {
     tutor,
     data,
   }: IRegisterClassService) {
+    /*
     const classExists = await prismaClient.class.findFirst({
       where: {
         name: name,
@@ -40,7 +41,8 @@ class RegisterClassService {
         status: 400,
       };
     }
-
+     */
+    
     if (
       name === "" &&
       description === "" &&

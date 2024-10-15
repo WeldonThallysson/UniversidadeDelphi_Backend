@@ -12,7 +12,7 @@ interface IEditClassService {
   tutor?: string;
   tag: string;
   data?: string;
-  status?: boolean;
+  status?: string;
 }
 
 class EditClassService {
@@ -30,6 +30,13 @@ class EditClassService {
     status,
   }: IEditClassService) {
 
+    if (!id) {
+      return {
+        message: "Para realizar essa ação, preencha o campo (id)",
+        status: 400,
+      };
+    }
+   
     const classExists = await prismaClient.class.findFirst({
       where: {
         id: id,
@@ -76,7 +83,7 @@ class EditClassService {
         idURLVideo,
         tag,
         tutor,
-        status
+        status: status === 'true' ? true : false
       },
       
     });

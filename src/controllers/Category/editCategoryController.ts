@@ -3,7 +3,7 @@ import { EditCategoryService } from "../../services/Category/editCategoryService
  
 class EditCategoryController {
   async handle(req: Request, res: Response) {
-    const { id, name, tag, description } = req.body;
+    const { id, name, tag, description,status } = req.body;
  
     const editCategory = new EditCategoryService();
     const responseEditCategory = await editCategory.execute({
@@ -11,6 +11,7 @@ class EditCategoryController {
       name,
       tag,
       description,
+      status
     });
 
     return res.status(responseEditCategory.status).json(responseEditCategory);

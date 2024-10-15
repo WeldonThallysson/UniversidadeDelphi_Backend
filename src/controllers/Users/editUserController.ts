@@ -10,14 +10,19 @@ class EditUsersController {
       name,
       email,
       status,
+      masterAccess,
+      password
     } = req.body;
+   
 
     const editUser = new EditUsersService();
     const responseEditUser = await editUser.execute({ 
       id,
       name,
       email,
-      status})
+      status,
+      masterAccess,
+      password})
     
      return res.status(responseEditUser.status).json(responseEditUser);
   }

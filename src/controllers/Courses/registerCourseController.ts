@@ -12,6 +12,7 @@ class RegisterCourseController {
     async handle(req: Request, res: Response){
         const id_author = req.user_id
         
+        const file = req.files['urlImage'] as UploadedFile
 
         if(!req.files || Object.keys(req.files).length === 0){
            return res.status(400).json({
@@ -19,7 +20,7 @@ class RegisterCourseController {
              status: 400
            })
         }
-        const file = req.files['urlImage'] as UploadedFile
+    
         
         const resultFile: UploadApiResponse = await new Promise((resolve,reject) => {
             cloudinary.uploader.upload_stream({}, function (err,result){

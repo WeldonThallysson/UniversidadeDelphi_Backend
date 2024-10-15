@@ -18,9 +18,8 @@ class GetAllClassService {
     data,
     tutor,
   }: IGetAllClassService) {
-    if (name) {
+    if (name || id_category || tag || data || tutor || id_course) {
       const getAllCourseFiltered = await prismaClient.class.findMany({
-        ...((name || id_category || tag || data || tutor || id_course) && {
           where: {
             name: name,
             id_category: id_category,
@@ -45,9 +44,7 @@ class GetAllClassService {
             status: true,
             created_At: true,
           },
-        }),
-      });
-
+        })
       return {
         data: getAllCourseFiltered,
         status: 200,

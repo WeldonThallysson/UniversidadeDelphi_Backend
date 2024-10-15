@@ -10,20 +10,19 @@ interface IRegisterCategoryService {
 
 class RegisterCategoryService {
     async execute({name, tag, description,id_author}: IRegisterCategoryService){
-        
-        const categoryExists = await prismaClient.category.findFirst({
+         const categoryExists = await prismaClient.category.findFirst({
             where: {
                 name: name
             }
-        })
+         })
         
-        if(categoryExists){
+         if(categoryExists){
             return {
                 message: "Não foi possivel cadastrar,essa categoria já existe !",
                 status: 400,
             }
-        }
-
+         }
+      
         await prismaClient.category.create({
             data: {
                 id_author: id_author,

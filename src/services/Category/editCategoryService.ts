@@ -11,7 +11,13 @@ interface IEditCategoryService {
 
 class EditCategoryService {
     async execute({id, name, tag, description,status}: IEditCategoryService){
-   
+       if(!id){
+        return {
+            message: "Para realizar essa ação, preencha o campo (id)",
+            status: 400,
+        }
+       }
+
        if(name === '' && tag === "" && description === ""){
         return {
             message: "Para realizar essa ação, preencha os campos (nome, tag, descrição)",
@@ -41,7 +47,7 @@ class EditCategoryService {
                 name: name,
                 tag: tag,
                 description: description,
-                status: status
+                status: status 
             }, select: {
                 id: true,
                 name: true,

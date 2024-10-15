@@ -34,20 +34,28 @@ class EditClassController {
         status: 400,
       });
     }
+    let urlImage: string | undefined;
 
     const resultFile: UploadApiResponse = await new Promise(
       (resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream({}, function (err, result) {
-            if (err) {
-              reject(err);
-              return;
+        cloudinary.uploader.upload_stream({
+              public_id: `class/${id}`,
+              overwrite: true,
+              folder: "class",
+            },
+            function (err, result) {
+              if (err) {
+                reject(err);
+                return;
+              }
+              resolve(result);
             }
-            resolve(result);
-          })
+          )
           .end(file.data);
       }
     );
+
+    urlImage = resultFile.secure_url;
 
     const responseEditClass = await editClass.execute({
       id,

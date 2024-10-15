@@ -11,7 +11,8 @@ interface IRegisterCourseService {
 
 class RegisterCourseService {
     async execute({id_author,data,category_id,name,description,urlImage}: IRegisterCourseService){
-        const courseExists = await prismaClient.courses.findFirst({
+        /*
+          const courseExists = await prismaClient.courses.findFirst({
              where: {
                 name: name
              }
@@ -24,6 +25,9 @@ class RegisterCourseService {
             }
         }
 
+        
+        */
+      
         if(name === "" && description === ""){
             return {
                 message: "Preencha os campos (nome, descrição)!",

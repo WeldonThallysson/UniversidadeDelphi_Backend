@@ -8,7 +8,20 @@ class GetDetailsClassService {
   async execute({
    id
   }: IGetDetailsClassService) {
+     const classExists = await prismaClient.class.findFirst({
+      where: {
+        id: id,
+      },
+    });
 
+    if (!classExists) {
+      return {
+        data: {
+          message: "Essa aula não existe!",
+        },
+        status: 400,
+     }
+    }
   
       const getDetailsClass = await prismaClient.class.findFirst({
         where: {
@@ -32,14 +45,6 @@ class GetDetailsClassService {
         }
       });
 
-      if(!getDetailsClass){
-         return {
-          data: {
-            message: "Essa aula não existe!",
-            status: 400,
-          }
-         }
-      }
 
       return {
         data: getDetailsClass,

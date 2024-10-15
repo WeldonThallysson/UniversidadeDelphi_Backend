@@ -3,16 +3,17 @@ import prismaClient from "../../prisma";
 interface IGetCourseService {
   category_id: string;
   name: string;
+  id_author?: string
 }
 
 class GetAllCourseService {
-  async execute({ category_id, name }: IGetCourseService) {
-    if (name) {
+  async execute({ category_id, name,id_author }: IGetCourseService) {
+    if (name || category_id || id_author) {
       const getAllCourseFiltered = await prismaClient.courses.findMany({
-        ...(name && {
           where: {
             name: name,
             category_id: category_id,
+            id_author:id_author
           },
           select: {
             id: true,
@@ -26,7 +27,6 @@ class GetAllCourseService {
             status: true,
             created_At: true,
           },
-        }),
       });
 
       return {
