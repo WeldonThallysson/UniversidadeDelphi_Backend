@@ -17,7 +17,9 @@ class LoginUserService {
 
     if (!userExists) {
       return {
-        message: "Este email não existe",
+        data: {
+         message: "Este usuário não existe!"
+        },
         status: 400,
       } 
     }
