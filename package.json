@@ -28,7 +28,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev ./src/server.ts",
-    "build": "tsup src",
+    "build": "tsc --build",
     "start": "node dist/server.js",
     "run-build": "npx prisma migrate deploy",
     "vercel-build": "prisma generate && prisma migrate deploy",
