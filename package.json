@@ -24,7 +24,7 @@
     "build": "tsc --build",
     "start": "node dist/server.js",
     "run-build": "npx prisma migrate deploy",
-    "vercel-build": "prisma generate && prisma migrate deploy",
+    "vercel-build": "npx yarn install && prisma generate && prisma migrate deploy",
     "prisma:generate": "prisma generate"
   },
   "devDependencies": {
