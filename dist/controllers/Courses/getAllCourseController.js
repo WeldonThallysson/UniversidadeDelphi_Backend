@@ -16,8 +16,15 @@ class GetAllCourseController {
         return __awaiter(this, void 0, void 0, function* () {
             const name = req.query.name;
             const category_id = req.query.category_id;
+            const page = req.query.page;
+            const limit = req.query.limit;
             const getAllCourse = new getAllCourseServices_1.GetAllCourseService();
-            const responseGetAllCourseCourse = yield getAllCourse.execute({ category_id, name });
+            const responseGetAllCourseCourse = yield getAllCourse.execute({
+                category_id,
+                name,
+                page: Number(page) ? Number(page) : 1,
+                limit: Number(limit) ? Number(limit) : 10,
+            });
             return res.status(responseGetAllCourseCourse.status).json(responseGetAllCourseCourse.data);
         });
     }

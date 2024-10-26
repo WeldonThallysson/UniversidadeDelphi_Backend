@@ -16,6 +16,7 @@ app.use((0, express_fileupload_1.default)({
     },
 }));
 app.use(express_1.default.json());
+app.use(routes_1.router);
 app.use((err, req, res, next) => {
     if (err instanceof Error) {
         return res.status(400).json({
@@ -27,11 +28,7 @@ app.use((err, req, res, next) => {
         message: "Internal server error",
     });
 });
-app.use(routes_1.router);
-app.listen({
-    host: "0.0.0.0",
-    port: process.env.PORT ? Number(process.env.PORT) : 3333,
-}, () => {
+app.listen(process.env.PORT, () => {
     console.log("Servidor online");
 });
 //# sourceMappingURL=server.js.map

@@ -17,7 +17,13 @@ const prisma_1 = __importDefault(require("../../prisma"));
 const bcryptjs_1 = require("bcryptjs");
 class RegisterUserService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ name, email, password }) {
+        return __awaiter(this, arguments, void 0, function* ({ name, id_author, email, password }) {
+            if (name === "" && email === "" && password === "") {
+                return {
+                    message: "Verifique e preencha os campos nome, email, senha.",
+                    status: 400,
+                };
+            }
             const userExists = yield prisma_1.default.users.findFirst({
                 where: {
                     email: email,
@@ -29,17 +35,12 @@ class RegisterUserService {
                     status: 400,
                 };
             }
-            if (name === "" && email === "" && password === "") {
-                return {
-                    message: "Verifique e preencha os campos nome, email, senha.",
-                    status: 400,
-                };
-            }
             const passwordHash = yield (0, bcryptjs_1.hash)(password, 8);
             yield prisma_1.default.users.create({
                 data: {
                     name: name,
                     email: email,
+                    id_author: id_author ? id_author : "",
                     password: passwordHash,
                 },
                 select: {

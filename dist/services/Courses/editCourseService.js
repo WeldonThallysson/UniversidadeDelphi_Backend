@@ -17,6 +17,18 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class EditCourseService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ id, category_id, name, description, urlImage, data, status }) {
+            if (name === "" && description === "") {
+                return {
+                    message: "Preencha os campos (nome, descrição)!",
+                    status: 400,
+                };
+            }
+            if (category_id === "") {
+                return {
+                    message: "Selecione a categoria do curso!",
+                    status: 400,
+                };
+            }
             if (!id) {
                 return {
                     message: "Para realizar essa ação, preencha o campo (id)",
@@ -31,18 +43,6 @@ class EditCourseService {
             if (!courseExists) {
                 return {
                     message: "Não foi possivel editar,esse curso não existe !",
-                    status: 400,
-                };
-            }
-            if (name === "" && description === "") {
-                return {
-                    message: "Preencha os campos (nome, descrição)!",
-                    status: 400,
-                };
-            }
-            if (category_id === "") {
-                return {
-                    message: "Selecione a categoria do curso!",
                     status: 400,
                 };
             }

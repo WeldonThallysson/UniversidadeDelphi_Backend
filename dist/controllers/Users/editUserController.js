@@ -14,6 +14,7 @@ const editUserService_1 = require("../../services/Users/editUserService");
 class EditUsersController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const id_user_logged = req.user_id;
             const { id, name, email, status, masterAccess, password } = req.body;
             const editUser = new editUserService_1.EditUsersService();
             const responseEditUser = yield editUser.execute({
@@ -22,6 +23,7 @@ class EditUsersController {
                 email,
                 status,
                 masterAccess,
+                id_user_logged,
                 password
             });
             return res.status(responseEditUser.status).json(responseEditUser);

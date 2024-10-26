@@ -16,7 +16,8 @@ exports.GetAllUserService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class GetAllUserService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ name, email }) {
+        return __awaiter(this, arguments, void 0, function* ({ id_user_logged, name, email, page = 1, limit = 10 }) {
+            const skip = (page - 1) * limit;
             const userExists = yield prisma_1.default.users.findFirst({
                 where: {
                     name: name,
@@ -31,11 +32,20 @@ class GetAllUserService {
             }
             const users = yield prisma_1.default.users.findMany({
                 where: {
+                    id: {
+                        not: id_user_logged,
+                    },
+                    masterAccess: {
+                        not: true,
+                    },
                     name: name,
                     email: email,
                 },
+                skip,
+                take: limit,
                 select: {
                     id: true,
+                    id_author: true,
                     name: true,
                     email: true,
                     status: true,
@@ -43,8 +53,24 @@ class GetAllUserService {
                     created_At: true,
                 },
             });
+            const totalUsers = yield prisma_1.default.users.count({
+                where: {
+                    id: {
+                        not: id_user_logged,
+                    },
+                    name: name,
+                    email: email,
+                },
+            });
             return {
-                data: users,
+                data: {
+                    items: users,
+                    total: totalUsers,
+                    totalPages: Math.ceil(totalUsers / limit),
+                    page: page,
+                    limit: limit,
+                    status: 200,
+                },
                 status: 200,
             };
         });

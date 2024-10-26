@@ -20,6 +20,8 @@ class GetAllClassController {
             const tag = req.query.tag;
             const data = req.query.data;
             const tutor = req.query.tutor;
+            const page = req.query.page;
+            const limit = req.query.limit;
             const getAllClass = new getAllClassService_1.GetAllClassService();
             const responseGetAllClass = yield getAllClass.execute({
                 name,
@@ -28,6 +30,8 @@ class GetAllClassController {
                 tag,
                 data,
                 tutor,
+                page: Number(page) ? Number(page) : 1,
+                limit: Number(limit) ? Number(limit) : 10,
             });
             return res.status(responseGetAllClass.status).json(responseGetAllClass.data);
         });

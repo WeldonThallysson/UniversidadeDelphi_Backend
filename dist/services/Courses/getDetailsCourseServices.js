@@ -31,12 +31,12 @@ class GetDetailsCourseService {
             const getDetailsCourse = yield prisma_1.default.courses.findFirst({
                 select: {
                     id: true,
+                    id_author: true,
+                    category_id: true,
                     name: true,
                     description: true,
                     class: true,
                     data: true,
-                    category_id: true,
-                    id_author: true,
                     urlImage: true,
                     status: true,
                     created_At: true

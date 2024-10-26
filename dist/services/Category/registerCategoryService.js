@@ -17,6 +17,14 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class RegisterCategoryService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ name, tag, description, id_author }) {
+            if (name === "" &&
+                description === "" &&
+                tag === "") {
+                return {
+                    message: "Preencha os campos (nome, descrição, tag)!",
+                    status: 400,
+                };
+            }
             const categoryExists = yield prisma_1.default.category.findFirst({
                 where: {
                     name: name

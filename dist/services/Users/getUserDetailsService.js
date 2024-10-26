@@ -28,12 +28,23 @@ class GetDetailsUserService {
                     status: 400,
                 };
             }
+            const author = yield prisma_1.default.users.findFirst({
+                where: {
+                    id_author: userExists.id_author
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                }
+            });
             const users = yield prisma_1.default.users.findFirst({
                 where: {
                     id: user_id
                 },
                 select: {
                     id: true,
+                    id_author: true,
                     name: true,
                     email: true,
                     status: true,
@@ -41,11 +52,16 @@ class GetDetailsUserService {
                     category: true,
                     courses: true,
                     class: true,
+                    lives: true,
                     created_At: true,
                 },
             });
+            const dataItem = {
+                items: users,
+                author: author
+            };
             return {
-                data: users,
+                data: dataItem,
                 status: 200
             };
         });

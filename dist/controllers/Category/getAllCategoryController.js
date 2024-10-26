@@ -17,11 +17,15 @@ class GetAllCategoryController {
             const name = req.query.name;
             const tag = req.query.tag;
             const description = req.query.description;
+            const page = req.query.page;
+            const limit = req.query.limit;
             const getAllCategory = new getAllCategoryService_1.GetAllCategoryService();
             const responseGetAllCategory = yield getAllCategory.execute({
                 name,
                 tag,
                 description,
+                page: page ? Number(page) : 1,
+                limit: limit ? Number(limit) : 10,
             });
             return res.status(responseGetAllCategory.status).json(responseGetAllCategory.data);
         });

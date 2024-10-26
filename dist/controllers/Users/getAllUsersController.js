@@ -14,10 +14,19 @@ const getAllUsersSevice_1 = require("../../services/Users/getAllUsersSevice");
 class GetAllUsersController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const id_user_logged = req.user_id;
             const name = req.query.name;
             const email = req.query.email;
+            const page = req.query.page;
+            const limit = req.query.limit;
             const getUsers = new getAllUsersSevice_1.GetAllUserService();
-            const resultGetUsers = yield getUsers.execute({ email, name });
+            const resultGetUsers = yield getUsers.execute({
+                id_user_logged,
+                email,
+                name,
+                page: Number(page) ? Number(page) : 1,
+                limit: Number(limit) ? Number(limit) : 10,
+            });
             return res.status(resultGetUsers.status).json(resultGetUsers.data);
         });
     }

@@ -36,6 +36,10 @@ class GetDetailsClassService {
                 },
                 select: {
                     id: true,
+                    id_author: true,
+                    idURLVideo: true,
+                    id_course: true,
+                    id_category: true,
                     name: true,
                     description: true,
                     data: true,
@@ -43,10 +47,6 @@ class GetDetailsClassService {
                     tutor: true,
                     urlVideo: true,
                     urlImage: true,
-                    id_author: true,
-                    idURLVideo: true,
-                    id_course: true,
-                    id_category: true,
                     status: true,
                     created_At: true,
                 }

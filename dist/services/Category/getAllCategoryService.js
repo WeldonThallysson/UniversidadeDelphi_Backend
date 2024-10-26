@@ -16,44 +16,37 @@ exports.GetAllCategoryService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class GetAllCategoryService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ name, tag, description }) {
-            if (name || tag || description) {
-                const getAllCategoryFiltered = yield prisma_1.default.category.findMany({
-                    where: {
-                        name: name,
-                        tag: tag,
-                        description: description,
-                    },
-                    select: {
-                        id: true,
-                        name: true,
-                        tag: true,
-                        status: true,
-                        description: true,
-                        created_At: true,
-                    },
-                });
-                return {
-                    data: getAllCategoryFiltered,
-                    status: 200,
-                };
-            }
-            else {
-                const getAllCategory = yield prisma_1.default.category.findMany({
-                    select: {
-                        id: true,
-                        name: true,
-                        tag: true,
-                        status: true,
-                        description: true,
-                        created_At: true,
-                    },
-                });
-                return {
-                    data: getAllCategory,
-                    status: 200,
-                };
-            }
+        return __awaiter(this, arguments, void 0, function* ({ name, tag, description, page, limit }) {
+            const skip = (page - 1) * limit;
+            const whereClause = Object.assign(Object.assign(Object.assign({}, (name && { name: { contains: name, mode: "insensitive" } })), (tag && { tag: { contains: tag, mode: "insensitive" } })), (description && { description: { contains: description, mode: "insensitive" } }));
+            // Busca com paginação e filtros (se fornecidos)
+            const categories = yield prisma_1.default.category.findMany({
+                where: whereClause,
+                skip,
+                take: limit,
+                select: {
+                    id: true,
+                    name: true,
+                    tag: true,
+                    status: true,
+                    description: true,
+                    created_At: true,
+                },
+            });
+            // Contagem total de categorias (para saber quantas páginas existem)
+            const totalCategories = yield prisma_1.default.category.count({
+                where: whereClause,
+            });
+            return {
+                data: {
+                    items: categories,
+                    total: totalCategories,
+                    totalPages: Math.ceil(totalCategories / limit),
+                    page,
+                    limit,
+                },
+                status: 200,
+            };
         });
     }
 }

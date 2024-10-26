@@ -23,7 +23,7 @@ class EditCategoryService {
                     status: 400,
                 };
             }
-            if (name === '' && tag === "" && description === "") {
+            if (name === "" && tag === "" && description === "") {
                 return {
                     message: "Para realizar essa ação, preencha os campos (nome, tag, descrição)",
                     status: 400,
@@ -31,8 +31,8 @@ class EditCategoryService {
             }
             const categoryExists = yield prisma_1.default.category.findFirst({
                 where: {
-                    id: id
-                }
+                    id: id,
+                },
             });
             if (!categoryExists) {
                 return {
@@ -42,21 +42,22 @@ class EditCategoryService {
             }
             yield prisma_1.default.category.update({
                 where: {
-                    id: id
+                    id: id,
                 },
                 data: {
                     name: name,
                     tag: tag,
                     description: description,
-                    status: status
-                }, select: {
+                    status: status,
+                },
+                select: {
                     id: true,
                     name: true,
                     tag: true,
                     status: true,
                     description: true,
-                    created_At: true
-                }
+                    created_At: true,
+                },
             });
             return {
                 message: "Categoria editada realizada com sucesso",

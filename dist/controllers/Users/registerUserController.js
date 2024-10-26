@@ -14,9 +14,9 @@ const registerUserService_1 = require("../../services/Users/registerUserService"
 class RegisterUserController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, email, password, } = req.body;
+            const { name, email, password, id_author, } = req.body;
             const userRegister = new registerUserService_1.RegisterUserService();
-            const newUser = yield userRegister.execute({ name, email, password });
+            const newUser = yield userRegister.execute({ id_author, name, email, password });
             res.status(newUser.status).json(newUser);
         });
     }

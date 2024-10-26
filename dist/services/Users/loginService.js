@@ -19,21 +19,31 @@ const jsonwebtoken_1 = require("jsonwebtoken");
 class LoginUserService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ email, password }) {
+            if (email === "" && password === "") {
+                return {
+                    message: "Verifique e preencha os campos (email, senha).",
+                    status: 400,
+                };
+            }
             const userExists = yield prisma_1.default.users.findFirst({
                 where: {
-                    email,
+                    email: email,
                 },
             });
             if (!userExists) {
                 return {
-                    message: "Este email não existe",
+                    data: {
+                        message: "Este usuário não existe!"
+                    },
                     status: 400,
                 };
             }
             const verifyPasswordHash = yield (0, bcryptjs_1.compare)(password, userExists.password);
             if (!verifyPasswordHash) {
                 return {
-                    message: "Credenciais email ou senha incorretas.",
+                    data: {
+                        message: "Credenciais email ou senha incorretas.",
+                    },
                     status: 400,
                 };
             }

@@ -17,6 +17,21 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class EditClassService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ id, id_category, name, description, urlImage, urlVideo, idURLVideo, tag, tutor, data, status, }) {
+            if (name === "" &&
+                description === "" &&
+                urlImage === "" &&
+                urlVideo === "") {
+                return {
+                    message: "Preencha os campos (nome, descrição, urlImage e urlVideo)!",
+                    status: 400,
+                };
+            }
+            if (id_category === "") {
+                return {
+                    message: "Selecione a categoria da aula!",
+                    status: 400,
+                };
+            }
             if (!id) {
                 return {
                     message: "Para realizar essa ação, preencha o campo (id)",
@@ -31,21 +46,6 @@ class EditClassService {
             if (!classExists) {
                 return {
                     message: "Não foi possivel editar, essa aula não existe!",
-                    status: 400,
-                };
-            }
-            if (name === "" &&
-                description === "" &&
-                urlImage === "" &&
-                urlVideo === "") {
-                return {
-                    message: "Preencha os campos (nome, descrição, urlImage e urlVideo)!",
-                    status: 400,
-                };
-            }
-            if (id_category === "") {
-                return {
-                    message: "Selecione a categoria da aula!",
                     status: 400,
                 };
             }

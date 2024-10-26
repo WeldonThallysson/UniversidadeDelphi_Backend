@@ -30,7 +30,9 @@ class RegisterClassController {
                 });
             }
             const resultFile = yield new Promise((resolve, reject) => {
-                cloudinary_1.v2.uploader.upload_stream({}, function (err, result) {
+                cloudinary_1.v2.uploader.upload_stream({
+                    folder: "class",
+                }, function (err, result) {
                     if (err) {
                         reject(err);
                         return;
