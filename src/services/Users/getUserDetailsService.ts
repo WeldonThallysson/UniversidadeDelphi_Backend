@@ -1,14 +1,14 @@
 import prismaClient from "../../prisma";
 
 interface IGetAllUserService {
-  user_id: string
+  id: string
 }
 
 class GetDetailsUserService {
-  async execute({ user_id }: IGetAllUserService) {
+  async execute({ id }: IGetAllUserService) {
     const userExists = await prismaClient.users.findFirst({
       where: {
-        id: user_id
+        id: id
       },
     });
 
@@ -32,7 +32,7 @@ class GetDetailsUserService {
     })
     const users = await prismaClient.users.findFirst({
       where: {
-        id: user_id
+        id: id
       },
 
       select: {

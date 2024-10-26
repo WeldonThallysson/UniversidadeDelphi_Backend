@@ -4,10 +4,10 @@ import { GetDetailsUserService } from '../../services/Users/getUserDetailsServic
 
 class GetDetailsUsersController {
   async handle(req: Request, res: Response) {
-    const {user_id} = req.params;
+    const {id} = req.params;
 
     const detailsUser = new GetDetailsUserService();
-    const responseDetailsUser = await detailsUser.execute({user_id})
+    const responseDetailsUser = await detailsUser.execute({id})
     
      return res.status(responseDetailsUser.status).json(responseDetailsUser.data);
   }

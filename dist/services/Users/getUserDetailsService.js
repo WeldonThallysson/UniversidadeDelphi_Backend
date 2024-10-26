@@ -16,10 +16,10 @@ exports.GetDetailsUserService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class GetDetailsUserService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ user_id }) {
+        return __awaiter(this, arguments, void 0, function* ({ id }) {
             const userExists = yield prisma_1.default.users.findFirst({
                 where: {
-                    id: user_id
+                    id: id
                 },
             });
             if (!userExists) {
@@ -40,7 +40,7 @@ class GetDetailsUserService {
             });
             const users = yield prisma_1.default.users.findFirst({
                 where: {
-                    id: user_id
+                    id: id
                 },
                 select: {
                     id: true,
