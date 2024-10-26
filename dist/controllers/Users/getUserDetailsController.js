@@ -14,7 +14,7 @@ const getUserDetailsService_1 = require("../../services/Users/getUserDetailsServ
 class GetDetailsUsersController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user_id = req.user_id;
+            const { user_id } = req.params;
             const detailsUser = new getUserDetailsService_1.GetDetailsUserService();
             const responseDetailsUser = yield detailsUser.execute({ user_id });
             return res.status(responseDetailsUser.status).json(responseDetailsUser.data);

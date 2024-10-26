@@ -4,7 +4,7 @@ import { GetDetailsUserService } from '../../services/Users/getUserDetailsServic
 
 class GetDetailsUsersController {
   async handle(req: Request, res: Response) {
-    const user_id = req.user_id;
+    const {user_id} = req.params;
 
     const detailsUser = new GetDetailsUserService();
     const responseDetailsUser = await detailsUser.execute({user_id})
