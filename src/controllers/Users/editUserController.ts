@@ -5,6 +5,7 @@ import { EditUsersService } from '../../services/Users/editUserService';
 
 class EditUsersController {
   async handle(req: Request, res: Response) {
+    const id_user_logged = req.user_id
     const { 
       id,
       name,
@@ -22,6 +23,7 @@ class EditUsersController {
       email,
       status,
       masterAccess,
+      id_user_logged,
       password})
     
      return res.status(responseEditUser.status).json(responseEditUser);

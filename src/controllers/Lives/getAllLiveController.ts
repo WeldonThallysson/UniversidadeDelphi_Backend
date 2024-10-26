@@ -1,7 +1,8 @@
 import { Request,Response } from "express"; 
 import { GetAllClassService } from "../../services/Class/getAllClassService";
+import { GetAllLiveService } from "../../services/Lives/getAllLiveService";
  
-class GetAllClassController {
+class GetAllLiveController {
     async handle(req: Request, res: Response){
      
         const name = req.query.name as string
@@ -13,13 +14,11 @@ class GetAllClassController {
         const page = req.query.page as string;
         const limit = req.query.limit as string;
 
+        const getAllLive = new GetAllLiveService();
 
-        const getAllClass = new GetAllClassService();
-
-        const responseGetAllClass = await getAllClass.execute({ 
+        const responseGetAllLive = await getAllLive.execute({ 
             name,
             id_category,
-            id_course,
             tag,
             data,
             tutor,
@@ -27,8 +26,8 @@ class GetAllClassController {
             limit: Number(limit) ? Number(limit) : 10,
         })
 
-        return res.status(responseGetAllClass.status).json(responseGetAllClass.data)
+        return res.status(responseGetAllLive.status).json(responseGetAllLive.data)
     }
 }
 
-export {GetAllClassController}
+export {GetAllLiveController}

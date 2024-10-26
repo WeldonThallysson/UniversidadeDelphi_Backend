@@ -23,7 +23,9 @@ class RegisterCourseController {
     
         
         const resultFile: UploadApiResponse = await new Promise((resolve,reject) => {
-            cloudinary.uploader.upload_stream({}, function (err,result){
+            cloudinary.uploader.upload_stream({
+                folder: "courses",
+            }, function (err,result){
                 if(err){
                     reject(err)
                     return;

@@ -5,10 +5,11 @@ interface ISignUpService {
   name: string;
   email: string;
   password: string;
+  id_author?: string | null;
 }
 
 class RegisterUserService {
-  async execute({ name, email, password }: ISignUpService) {
+  async execute({ name,id_author, email, password }: ISignUpService) {
   
     if (name === "" && email === "" && password === "") {
       return {
@@ -36,6 +37,7 @@ class RegisterUserService {
       data: {
         name: name,
         email: email,
+        id_author: id_author ? id_author : "",
         password: passwordHash,
       },
       select: {

@@ -1,14 +1,14 @@
 import prismaClient from "../../prisma";
 
-interface IGetDetailsClassService {
+interface IGetDetailsLiveService {
   id: string
 }
 
-class GetDetailsClassService {
+class GetDetailsLiveService {
   async execute({
    id
-  }: IGetDetailsClassService) {
-     const classExists = await prismaClient.class.findFirst({
+  }: IGetDetailsLiveService) {
+     const classExists = await prismaClient.lives.findFirst({
       where: {
         id: id,
       },
@@ -17,22 +17,21 @@ class GetDetailsClassService {
     if (!classExists) {
       return {
         data: {
-          message: "Essa aula não existe!",
+          message: "Essa live não existe!",
         },
         status: 400,
      }
     }
   
-      const getDetailsClass = await prismaClient.class.findFirst({
+      const getDetailsClass = await prismaClient.lives.findFirst({
         where: {
           id
         },
         select:{
             id: true,
             id_author: true,
-            idURLVideo: true,
-            id_course: true,
             id_category: true,
+            idURLVideo: true,
             name: true,
             description: true,
             data: true,
@@ -54,4 +53,4 @@ class GetDetailsClassService {
 
 }
 
-export { GetDetailsClassService };
+export { GetDetailsLiveService };

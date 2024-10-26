@@ -15,6 +15,7 @@ datasource db {
 
 model Users {
   id           String     @id @default(uuid())
+  id_author    String?    
   name         String
   email        String
   password     String
@@ -22,8 +23,10 @@ model Users {
   courses      Courses[]
   class        Class[]
   category     Category[]
+  lives        Lives[]
   status       Boolean?   @default(true)
   created_At   DateTime?  @default(now())
+  
 
   @@map("users")
 }
@@ -38,6 +41,7 @@ model Category {
   status      Boolean?  @default(true)
   courses     Courses[]
   class       Class[]
+  lives       Lives[]
   created_At  DateTime? @default(now())
 
   @@map("category")
@@ -65,6 +69,7 @@ model Class {
   id_author   String
   id_course   String?
   id_category String
+  order       Int?
   name        String
   description String
   urlImage    String
@@ -79,4 +84,27 @@ model Class {
   category    Category @relation(fields: [id_category], references: [id])
   courses     Courses? @relation(fields: [id_course], references: [id])
   @@map("class")
+}
+
+
+model Lives {
+  id          String   @id @default(uuid())
+  id_author   String
+  //id_course   String?
+  order       Int?
+  id_category String
+  name        String
+  description String
+  urlImage    String
+  urlVideo    String
+  idURLVideo  String?
+  tutor       String?
+  tag         String
+  data        String?
+  status      Boolean? @default(true)
+  created_At  DateTime @default(now())
+  users       Users    @relation(fields: [id_author], references: [id])
+  category    Category @relation(fields: [id_category], references: [id])
+  //courses     Courses? @relation(fields: [id_course], references: [id])
+  @@map("lives")
 }

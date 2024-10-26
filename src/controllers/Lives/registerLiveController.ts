@@ -2,6 +2,7 @@ import { Request,Response } from "express";
 import { RegisterClassService } from "../../services/Class/registerClassService";
 import { v2 as cloudinary,UploadApiResponse } from "cloudinary";
 import { UploadedFile } from "express-fileupload";
+import { RegisterLiveService } from "../../services/Lives/registerLiveService";
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -9,15 +10,15 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET
 })
 
-class RegisterClassController {
+class RegisterLiveController {
     async handle(req: Request, res: Response){
         const id_author = req.user_id
         const {
-            id_course,
+         
             id_category,
             name, 
             description,
-            
+  
             urlVideo,
             idURLVideo,
             tutor,
@@ -36,7 +37,7 @@ class RegisterClassController {
   
         const resultFile: UploadApiResponse = await new Promise((resolve,reject) => {
             cloudinary.uploader.upload_stream({
-                folder: "class",
+                folder: "lives",
             }, function(err,result){
                if(err){
                  reject(err)
@@ -48,11 +49,10 @@ class RegisterClassController {
 
 
 
-        const registerClass = new RegisterClassService();
+        const registerLive = new RegisterLiveService();
 
-        const responseRegisterClass = await registerClass.execute({ 
+        const responseRegisterLive = await registerLive.execute({ 
             id_author, 
-            id_course,
             id_category,
             name, 
             description,
@@ -64,8 +64,8 @@ class RegisterClassController {
             data,
         })
 
-        return res.status(responseRegisterClass.status).json(responseRegisterClass)
+        return res.status(responseRegisterLive.status).json(responseRegisterLive)
     }
 }
 
-export {RegisterClassController}
+export {RegisterLiveController}
