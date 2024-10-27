@@ -57,7 +57,7 @@ class LoginUserService {
     return {
         data: {
           id: userExists.id,
-          email: userExists.email,
+          name: userExists.name,
           token: token,
         },
         status: 200,
