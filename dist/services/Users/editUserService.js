@@ -34,81 +34,63 @@ class EditUsersService {
                     id: id,
                 },
             });
-            if (!userExistsLogged.masterAccess) {
+            if (!userExistsLogged) {
                 return {
-                    message: "Para está ação necessita de um responsável de acesso master!",
+                    message: "Usuário logado não encontrado.",
                     status: 404,
                 };
             }
-            /*
-             if (name === "" || email === "") {
-              return {
-                message: "Informe os dados obrigatórios (nome,email)",
-                status: 400,
-              }
-            }
-        
-        
-        
-            if (nameExists) {
-              return {
-                message: "Esse email já existe, para editar o usuário tente outro email!",
-                status: 400,
-              }
-            }
-            */
             if (!userExists) {
                 return {
                     message: "Este usuário não existe!",
                     status: 404,
                 };
             }
+            // Verificação de permissões para edição
+            if (id !== id_user_logged && !userExistsLogged.masterAccess) {
+                return {
+                    message: "Você não tem permissão para editar outros usuários.",
+                    status: 403,
+                };
+            }
+            if (masterAccess !== undefined && masterAccess !== userExists.masterAccess && !userExistsLogged.masterAccess) {
+                return {
+                    message: "Sua conta não possui permissão para alterar o acesso master, apenas contas de acesso master!",
+                    status: 401,
+                };
+            }
+            if (!name || !email) {
+                return {
+                    message: "Informe os dados obrigatórios (nome, email).",
+                    status: 400,
+                };
+            }
+            const emailExists = yield prisma_1.default.users.findFirst({
+                where: {
+                    email: email,
+                    id: { not: id },
+                },
+            });
+            if (emailExists) {
+                return {
+                    message: "Esse email já está em uso, tente outro email!",
+                    status: 400,
+                };
+            }
             let passwordHash;
             if (password) {
                 passwordHash = yield (0, bcryptjs_1.hash)(password, 8);
-            }
-            if (userExistsLogged.masterAccess) {
-                yield prisma_1.default.users.update({
-                    where: {
-                        id: id,
-                    },
-                    data: {
-                        name: name,
-                        email: email,
-                        masterAccess: masterAccess,
-                        password: passwordHash || userExists.password,
-                        status: status,
-                    },
-                    select: {
-                        id: true,
-                        id_author: true,
-                        name: true,
-                        email: true,
-                        masterAccess: true,
-                        status: true,
-                        created_At: true,
-                    },
-                });
-                return {
-                    message: 'Usuário editado com sucesso!',
-                    status: 200,
-                };
-            }
-            if (masterAccess !== null && !userExistsLogged.masterAccess) {
-                return {
-                    message: 'Sua conta não possui permissão para alterar o acesso master, apenas contas de acesso master!',
-                    status: 401,
-                };
             }
             yield prisma_1.default.users.update({
                 where: {
                     id: id,
                 },
                 data: {
-                    name: name,
-                    email: email,
+                    name,
+                    email,
+                    masterAccess: userExistsLogged.masterAccess ? masterAccess : userExists.masterAccess,
                     password: passwordHash || userExists.password,
-                    status: status,
+                    status,
                 },
                 select: {
                     id: true,
