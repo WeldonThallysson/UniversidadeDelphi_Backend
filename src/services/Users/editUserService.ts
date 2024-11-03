@@ -32,7 +32,7 @@ class EditUsersService {
       },
     });
 
-    if(!userExistsLogged){
+    if(!userExistsLogged.masterAccess){
         return {
           message: "Para está ação necessita de um responsável de acesso master!",
          status: 404,

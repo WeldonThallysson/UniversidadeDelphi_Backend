@@ -26,6 +26,8 @@ import { GetDetailsLiveController } from "./controllers/Lives/getDetailsLiveCont
 import { RegisterLiveController } from "./controllers/Lives/registerLiveController";
 import { EditLiveController } from "./controllers/Lives/editLiveController";
 import { DeleteLiveController } from "./controllers/Lives/deleteLiveController";
+import { RecoverPasswordController } from "./controllers/Users/PasswordRecover/recoverPasswordUserController";
+import { RedefinePasswordController } from "./controllers/Users/PasswordRecover/redefinePasswordUserController";
 
 
 const router = Router()
@@ -40,6 +42,10 @@ router.get('/', (_,res:Response) => {
 // rotas para o login e cadastro do usuario, get de todos usuários cadastrados e get de detalhes de 1 usuário
 router.post('/login', new LoginUserController().handle) // endpoint para login
 router.post('/register', new RegisterUserController().handle) // endpoint para cadastrar uma conta
+router.post("/auth/recoverpassword", new RecoverPasswordController().handle) // endpoint para requerir a recuperação de senha com email
+router.post("/auth/redefinepassword", new RedefinePasswordController().handle) // endpoint para redefinir a senha com token gerado pelo sistema.
+
+
 router.get('/users', isLogged, new GetAllUsersController().handle) // endpoint para dar get de usuários se tiver o masterAccess true
 router.get('/users/:id',isLogged, new GetDetailsUsersController().handle) // endpoint para dar get em detalhe da minha conta sem necessidade de master access true
 router.put('/users', isLogged, new EditUsersController().handle)
