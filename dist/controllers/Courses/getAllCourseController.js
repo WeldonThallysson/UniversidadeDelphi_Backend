@@ -25,7 +25,7 @@ class GetAllCourseController {
                 page: Number(page) ? Number(page) : 1,
                 limit: Number(limit) ? Number(limit) : 10,
             });
-            return res.status(responseGetAllCourseCourse.status).json(responseGetAllCourseCourse.data);
+            return res.status(responseGetAllCourseCourse.data.status).json(responseGetAllCourseCourse.data);
         });
     }
 }
