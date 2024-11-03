@@ -53,8 +53,10 @@ class GetDetailsUserService {
 
 
     const dataItem = {
-      items: users,
-      author: author
+      items: {
+        ...users,
+        author: author
+      },
     }
     return {
       data: dataItem,

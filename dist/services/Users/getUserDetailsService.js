@@ -57,8 +57,7 @@ class GetDetailsUserService {
                 },
             });
             const dataItem = {
-                items: users,
-                author: author
+                items: Object.assign(Object.assign({}, users), { author: author }),
             };
             return {
                 data: dataItem,
