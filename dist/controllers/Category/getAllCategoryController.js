@@ -24,8 +24,8 @@ class GetAllCategoryController {
                 name,
                 tag,
                 description,
-                page: page ? Number(page) : 1,
-                limit: limit ? Number(limit) : 10,
+                page: Number(page) ? Number(page) : 1,
+                limit: Number(limit) ? Number(limit) : 10,
             });
             return res.status(responseGetAllCategory.status).json(responseGetAllCategory.data);
         });
