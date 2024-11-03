@@ -19,7 +19,7 @@ class GetAllCourseController {
             
             })
 
-        return res.status(responseGetAllCourseCourse.status).json(responseGetAllCourseCourse.data)
+        return res.status(responseGetAllCourseCourse.data.status).json(responseGetAllCourseCourse.data)
     }
 }
 

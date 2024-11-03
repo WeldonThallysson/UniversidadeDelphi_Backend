@@ -42,12 +42,15 @@ class GetAllCourseService {
     });
 
     return {
-      data: courses,
-      total: totalCourses,
-      page,
-      limit,
-      totalPages: Math.ceil(totalCourses / limit), // Total de páginas
-      status: 200,
+      data: {
+        items: courses,
+        total: totalCourses,
+        page,
+        limit,
+        totalPages: Math.ceil(totalCourses / limit), // Total de páginas
+        status: 200,
+      }
+     
     };
   }
 }
