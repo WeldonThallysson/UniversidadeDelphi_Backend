@@ -25,7 +25,7 @@ class AllowAccessUserService {
                     },
                 };
             }
-            if (masterAccessParam !== null) {
+            if (masterAccessParam === null) {
                 return {
                     data: {
                         message: "Não foi possivel realizar esta ação, por favor envie o masterAccessParam do usuário.",

@@ -22,7 +22,7 @@ class AllowAccessUserService {
         },
       };
     }
-    if (masterAccessParam !== null) {
+    if (masterAccessParam === null) {
       return {
         data: {
           message:
