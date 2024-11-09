@@ -13,11 +13,20 @@ class AllowAccessUserService {
     masterAccessParam,
   }: IAllowAccessUserService) {
     
-    if (!id_user_logged) {
+    if (!email_user) {
       return {
         data: {
           message:
             "Não foi possivel realizar esta ação, por favor envie o email_user do usuário.",
+          status: 400,
+        },
+      };
+    }
+    if (masterAccessParam !== null) {
+      return {
+        data: {
+          message:
+            "Não foi possivel realizar esta ação, por favor envie o masterAccessParam do usuário.",
           status: 400,
         },
       };

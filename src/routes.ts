@@ -44,14 +44,15 @@ router.get('/', (_,res:Response) => {
 router.post('/login', new LoginUserController().handle) // endpoint para login
 router.post('/register', new RegisterUserController().handle) // endpoint para cadastrar uma conta
 router.post("/auth/recoverpassword", new RecoverPasswordController().handle) // endpoint para requerir a recuperação de senha com email
-router.post("/auth/redefinepassword", new RedefinePasswordController().handle) // endpoint para redefinir a senha com token gerado pelo sistema.
-router.post("/auth/permissions", new AllowAccessUserController().handle) // endpoint para redefinir a senha com token gerado pelo sistema.
-
+router.post("/auth/redefinepassword", new RedefinePasswordController().handle) 
+// endpoint para redefinir a senha com token gerado pelo sistema.
 
 router.get('/users', isLogged, new GetAllUsersController().handle) // endpoint para dar get de usuários se tiver o masterAccess true
 router.get('/users/:id',isLogged, new GetDetailsUsersController().handle) // endpoint para dar get em detalhe da minha conta sem necessidade de master access true
 router.put('/users', isLogged, new EditUsersController().handle)
 router.delete("/users/:id", isLogged, new DeleteUsersController().handle )
+router.post("/users/permissions", isLogged, new AllowAccessUserController().handle) // endpoint para redefinir a senha com token gerado pelo sistema.
+
 
 // rotas para cadastrar uma categoria 
 router.get('/category', new GetAllCategoryController().handle) // endpoint para buscar as categorias sem precisar estar logado pois o front irá fazer esse get com os filtros 
