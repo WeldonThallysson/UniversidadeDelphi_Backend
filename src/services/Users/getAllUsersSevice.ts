@@ -32,9 +32,6 @@ class GetAllUserService {
           not: id_user_logged,
          
         },
-        masterAccess: {
-          not: true,
-        },
         name: name,
         email: email,
         
