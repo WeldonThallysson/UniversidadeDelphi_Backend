@@ -30,8 +30,8 @@ class GetAllClassController {
                 tag,
                 data,
                 tutor,
-                page: Number(page) ? Number(page) : 1,
-                limit: Number(limit) ? Number(limit) : 10,
+                page: Number(page) ? Number(page) : null,
+                limit: Number(limit) ? Number(limit) : null,
             });
             return res.status(responseGetAllClass.status).json(responseGetAllClass.data);
         });

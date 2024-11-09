@@ -22,8 +22,8 @@ class GetAllCourseController {
             const responseGetAllCourseCourse = yield getAllCourse.execute({
                 category_id,
                 name,
-                page: Number(page) ? Number(page) : 1,
-                limit: Number(limit) ? Number(limit) : 10,
+                page: Number(page) ? Number(page) : null,
+                limit: Number(limit) ? Number(limit) : null,
             });
             return res.status(responseGetAllCourseCourse.data.status).json(responseGetAllCourseCourse.data);
         });

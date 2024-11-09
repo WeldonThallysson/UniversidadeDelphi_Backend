@@ -16,15 +16,17 @@ exports.GetAllLiveService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
 class GetAllLiveService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ name, id_category, tag, data, tutor, page, limit, }) {
-            const skip = (page - 1) * limit; // Calcula quantos itens pular
+        return __awaiter(this, arguments, void 0, function* ({ name, id_category, tag, data, tutor, page = 1, // Valor padrão para page
+        limit, // Se undefined, buscará todos os registros
+         }) {
+            const skip = limit ? (page - 1) * limit : undefined; // Pula itens apenas se `limit` estiver definido
             // Cláusula de filtro dinâmico
             const whereClause = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (name && { name: { contains: name, mode: 'insensitive' } })), (id_category && { id_category })), (tag && { tag: { contains: tag, mode: 'insensitive' } })), (data && { data: { contains: data, mode: 'insensitive' } })), (tutor && { tutor: { contains: tutor, mode: 'insensitive' } }));
-            // Busca com filtros e paginação
+            // Busca com filtros e paginação condicional
             const lives = yield prisma_1.default.lives.findMany({
                 where: whereClause,
                 skip,
-                take: limit,
+                take: limit || undefined, // Se `limit` for undefined, retorna todos os registros
                 select: {
                     id: true,
                     id_author: true,
@@ -50,8 +52,8 @@ class GetAllLiveService {
                     items: lives,
                     total: totalLives,
                     page,
-                    limit,
-                    totalPages: Math.ceil(totalLives / limit), // Calcula total de páginas
+                    limit: limit || totalLives, // Define `limit` como o total se não for fornecido
+                    totalPages: limit ? Math.ceil(totalLives / limit) : 1, // Calcula total de páginas ou 1 se `limit` não for definido
                 },
                 status: 200,
             };

@@ -1,4 +1,5 @@
 import prismaClient from "../../prisma";
+import { Prisma } from "@prisma/client"; // Importação do Prisma
 
 interface IGetAllLiveService {
   id_category?: string;
@@ -6,8 +7,8 @@ interface IGetAllLiveService {
   tag?: string;
   data?: string;
   tutor?: string;
-  page: number;
-  limit: number;
+  page?: number; // Agora é opcional
+  limit?: number; // Agora é opcional
 }
 
 class GetAllLiveService {
@@ -17,25 +18,25 @@ class GetAllLiveService {
     tag,
     data,
     tutor,
-    page,
-    limit,
+    page = 1, // Valor padrão para page
+    limit,    // Se undefined, buscará todos os registros
   }: IGetAllLiveService) {
-    const skip = (page - 1) * limit; // Calcula quantos itens pular
+    const skip = limit ? (page - 1) * limit : undefined; // Pula itens apenas se `limit` estiver definido
 
     // Cláusula de filtro dinâmico
-    const whereClause = {
+    const whereClause: Prisma.LivesWhereInput = {
       ...(name && { name: { contains: name, mode: 'insensitive' } }),
       ...(id_category && { id_category }),
       ...(tag && { tag: { contains: tag, mode: 'insensitive' } }),
       ...(data && { data: { contains: data, mode: 'insensitive' } }),
-      ...(tutor && { tutor: { contains: tutor, mode: 'insensitive' } } as any),
+      ...(tutor && { tutor: { contains: tutor, mode: 'insensitive' } }),
     };
 
-    // Busca com filtros e paginação
+    // Busca com filtros e paginação condicional
     const lives = await prismaClient.lives.findMany({
       where: whereClause,
       skip,
-      take: limit,
+      take: limit || undefined, // Se `limit` for undefined, retorna todos os registros
       select: {
         id: true,
         id_author: true,
@@ -63,8 +64,8 @@ class GetAllLiveService {
         items: lives,
         total: totalLives,
         page,
-        limit,
-        totalPages: Math.ceil(totalLives / limit), // Calcula total de páginas
+        limit: limit || totalLives, // Define `limit` como o total se não for fornecido
+        totalPages: limit ? Math.ceil(totalLives / limit) : 1, // Calcula total de páginas ou 1 se `limit` não for definido
       },
       status: 200,
     };

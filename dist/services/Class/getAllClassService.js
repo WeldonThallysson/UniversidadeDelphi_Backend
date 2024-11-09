@@ -17,14 +17,14 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class GetAllClassService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ name, id_category, id_course, tag, data, tutor, page, limit, }) {
-            const skip = (page - 1) * limit;
+            const skip = limit ? (page - 1) * limit : undefined; // Pula itens apenas se `limit` estiver definido
             // Ajuste dos filtros dinâmicos usando a tipagem correta do Prisma
             const whereClause = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, (name && { name: { contains: name, mode: 'insensitive' } })), (id_category && { id_category })), (id_course && { id_course })), (tag && { tag: { contains: tag, mode: 'insensitive' } })), (data && { data: { contains: data, mode: 'insensitive' } })), (tutor && { tutor: { contains: tutor, mode: 'insensitive' } }));
-            // Busca com filtros, paginação e ordenação pelo campo `order`
+            // Busca com filtros, paginação condicional e ordenação pelo campo `order`
             const classes = yield prisma_1.default.class.findMany({
                 where: whereClause,
                 skip,
-                take: limit,
+                take: limit || undefined, // Se `limit` for undefined, retorna todos os registros
                 orderBy: { order: 'asc' }, // Ordena por `order` em ordem crescente
                 select: {
                     id: true,
@@ -52,9 +52,9 @@ class GetAllClassService {
                 data: {
                     items: classes,
                     total: totalClasses,
-                    totalPages: Math.ceil(totalClasses / limit),
-                    page,
-                    limit,
+                    page: page || 1, // Define `page` como 1 se não for fornecido
+                    limit: limit || totalClasses, // Define `limit` como o total se não for fornecido
+                    totalPages: limit ? Math.ceil(totalClasses / limit) : 1, // Calcula total de páginas ou 1 se `limit` não for definido
                 },
                 status: 200,
             };

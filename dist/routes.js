@@ -31,6 +31,7 @@ const editLiveController_1 = require("./controllers/Lives/editLiveController");
 const deleteLiveController_1 = require("./controllers/Lives/deleteLiveController");
 const recoverPasswordUserController_1 = require("./controllers/Users/PasswordRecover/recoverPasswordUserController");
 const redefinePasswordUserController_1 = require("./controllers/Users/PasswordRecover/redefinePasswordUserController");
+const allowAccessUserController_1 = require("./controllers/Users/Permissions/allowAccessUserController");
 const router = (0, express_1.Router)();
 exports.router = router;
 router.get('/', (_, res) => {
@@ -43,6 +44,7 @@ router.post('/login', new loginController_1.LoginUserController().handle); // en
 router.post('/register', new registerUserController_1.RegisterUserController().handle); // endpoint para cadastrar uma conta
 router.post("/auth/recoverpassword", new recoverPasswordUserController_1.RecoverPasswordController().handle); // endpoint para requerir a recuperação de senha com email
 router.post("/auth/redefinepassword", new redefinePasswordUserController_1.RedefinePasswordController().handle); // endpoint para redefinir a senha com token gerado pelo sistema.
+router.post("/auth/permissions", new allowAccessUserController_1.AllowAccessUserController().handle); // endpoint para redefinir a senha com token gerado pelo sistema.
 router.get('/users', isLogged_1.isLogged, new getAllUsersController_1.GetAllUsersController().handle); // endpoint para dar get de usuários se tiver o masterAccess true
 router.get('/users/:id', isLogged_1.isLogged, new getUserDetailsController_1.GetDetailsUsersController().handle); // endpoint para dar get em detalhe da minha conta sem necessidade de master access true
 router.put('/users', isLogged_1.isLogged, new editUserController_1.EditUsersController().handle);

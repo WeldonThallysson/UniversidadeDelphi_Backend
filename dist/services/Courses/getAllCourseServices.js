@@ -17,13 +17,14 @@ const prisma_1 = __importDefault(require("../../prisma"));
 class GetAllCourseService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ category_id, name, id_author, page, limit }) {
-            const skip = (page - 1) * limit; // Calcula quantos itens serão pulados
+            // Define o número de itens a serem pulados apenas se `limit` for definido
+            const skip = limit ? (page - 1) * limit : undefined;
             const whereClause = Object.assign(Object.assign(Object.assign({}, (name && { name: { contains: name, mode: 'insensitive' } })), (category_id && { category_id })), (id_author && { id_author }));
-            // Busca com filtros, paginação e contagem total
+            // Configura a query para buscar todos os itens se `limit` não for definido
             const courses = yield prisma_1.default.courses.findMany({
                 where: whereClause,
                 skip,
-                take: limit,
+                take: limit || undefined, // Se `limit` for `undefined`, retorna todos
                 select: {
                     id: true,
                     id_author: true,
@@ -45,8 +46,8 @@ class GetAllCourseService {
                     items: courses,
                     total: totalCourses,
                     page,
-                    limit,
-                    totalPages: Math.ceil(totalCourses / limit), // Total de páginas
+                    limit: limit || totalCourses, // Define `limit` como o total de cursos se não for fornecido
+                    totalPages: limit ? Math.ceil(totalCourses / limit) : 1, // Calcula o total de páginas ou define como 1 se `limit` não for fornecido
                     status: 200,
                 }
             };

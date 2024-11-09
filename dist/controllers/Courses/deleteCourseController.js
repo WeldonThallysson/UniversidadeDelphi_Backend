@@ -11,11 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteCourseController = void 0;
 const deleteCourseService_1 = require("../../services/Courses/deleteCourseService");
+const cloudinary_1 = require("cloudinary");
+cloudinary_1.v2.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+});
 class DeleteCourseController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const deleteCourse = new deleteCourseService_1.DeleteCourseService();
+            yield cloudinary_1.v2.uploader.destroy(`courses/${id}`, function (error, result) {
+                if (error) {
+                    console.error("Erro ao deletar imagem do Cloudinary:", error);
+                }
+            });
             const responseDeleteCourse = yield deleteCourse.execute({ id });
             return res.status(responseDeleteCourse.status).json(responseDeleteCourse);
         });

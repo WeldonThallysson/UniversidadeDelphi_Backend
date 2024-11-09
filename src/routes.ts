@@ -28,6 +28,7 @@ import { EditLiveController } from "./controllers/Lives/editLiveController";
 import { DeleteLiveController } from "./controllers/Lives/deleteLiveController";
 import { RecoverPasswordController } from "./controllers/Users/PasswordRecover/recoverPasswordUserController";
 import { RedefinePasswordController } from "./controllers/Users/PasswordRecover/redefinePasswordUserController";
+import { AllowAccessUserController } from "./controllers/Users/Permissions/allowAccessUserController";
 
 
 const router = Router()
@@ -44,6 +45,7 @@ router.post('/login', new LoginUserController().handle) // endpoint para login
 router.post('/register', new RegisterUserController().handle) // endpoint para cadastrar uma conta
 router.post("/auth/recoverpassword", new RecoverPasswordController().handle) // endpoint para requerir a recuperação de senha com email
 router.post("/auth/redefinepassword", new RedefinePasswordController().handle) // endpoint para redefinir a senha com token gerado pelo sistema.
+router.post("/auth/permissions", new AllowAccessUserController().handle) // endpoint para redefinir a senha com token gerado pelo sistema.
 
 
 router.get('/users', isLogged, new GetAllUsersController().handle) // endpoint para dar get de usuários se tiver o masterAccess true

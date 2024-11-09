@@ -11,11 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeleteClassController = void 0;
 const deleteClassService_1 = require("../../services/Class/deleteClassService");
+const cloudinary_1 = require("cloudinary");
+cloudinary_1.v2.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+});
 class DeleteClassController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const deleteClass = new deleteClassService_1.DeleteClassService();
+            yield cloudinary_1.v2.uploader.destroy(`class/${id}`, function (error, result) {
+                if (error) {
+                    console.error("Erro ao deletar imagem do Cloudinary:", error);
+                }
+            });
             const responseEditClass = yield deleteClass.execute({
                 id,
             });
