@@ -17,10 +17,18 @@ const prisma_1 = __importDefault(require("../../../prisma"));
 class AllowAccessUserService {
     execute(_a) {
         return __awaiter(this, arguments, void 0, function* ({ email_user, id_user_logged, masterAccessParam, }) {
-            if (!id_user_logged) {
+            if (!email_user) {
                 return {
                     data: {
                         message: "Não foi possivel realizar esta ação, por favor envie o email_user do usuário.",
+                        status: 400,
+                    },
+                };
+            }
+            if (masterAccessParam !== null) {
+                return {
+                    data: {
+                        message: "Não foi possivel realizar esta ação, por favor envie o masterAccessParam do usuário.",
                         status: 400,
                     },
                 };
