@@ -64,7 +64,7 @@ class AllowAccessUserService {
       };
     }
 
-    if ( !userLoggedExists.masterAccess) {
+    if (!userLoggedExists.masterAccess) {
       return {
         data: {
           message: "Você não tem permissão de autorização para esta ação.",
@@ -88,7 +88,7 @@ class AllowAccessUserService {
         id: userExists.id,
       },
       data: {
-        masterAccess: masterAccessParam ? masterAccessParam : false
+        masterAccess: masterAccessParam
       },
     });
 

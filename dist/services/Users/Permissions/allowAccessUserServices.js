@@ -80,7 +80,7 @@ class AllowAccessUserService {
                     id: userExists.id,
                 },
                 data: {
-                    masterAccess: masterAccessParam ? masterAccessParam : false
+                    masterAccess: masterAccessParam
                 },
             });
             return {
