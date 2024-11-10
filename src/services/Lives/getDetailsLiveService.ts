@@ -39,7 +39,9 @@ class GetDetailsLiveService {
             tutor: true,
             urlVideo: true,
             urlImage: true,
-            status: true,
+            status: true, 
+            category: true,
+            order:true,
             created_At: true,
         }
       });

@@ -31,6 +31,7 @@ class GetDetailsCourseService {
                     data: true,
                     urlImage: true,
                     status: true,
+                    category: true,
                     created_At: true
                 }
             })

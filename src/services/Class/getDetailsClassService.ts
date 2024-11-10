@@ -41,6 +41,8 @@ class GetDetailsClassService {
             urlVideo: true,
             urlImage: true,
             status: true,
+            category: true,
+            courses: true,
             created_At: true,
         }
       });

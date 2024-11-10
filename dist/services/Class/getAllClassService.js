@@ -41,6 +41,8 @@ class GetAllClassService {
                     urlImage: true,
                     order: true, // Inclui o campo `order` no retorno
                     status: true,
+                    category: true,
+                    courses: true,
                     created_At: true,
                 },
             });

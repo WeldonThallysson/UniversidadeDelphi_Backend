@@ -47,6 +47,8 @@ class GetDetailsLiveService {
                     urlVideo: true,
                     urlImage: true,
                     status: true,
+                    category: true,
+                    order: true,
                     created_At: true,
                 }
             });
