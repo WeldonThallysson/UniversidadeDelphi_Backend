@@ -32,7 +32,15 @@ class GetDetailsCourseService {
                     urlImage: true,
                     status: true,
                     category: true,
-                    users:true,
+                    users: {
+                      select: {
+                        id:true,
+                        name: true,
+                        email:true,
+                        status: true,
+                        id_author: true
+                      }
+                  },
                     created_At: true
                 }
             })

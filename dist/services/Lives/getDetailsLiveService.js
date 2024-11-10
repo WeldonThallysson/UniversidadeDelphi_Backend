@@ -49,7 +49,15 @@ class GetDetailsLiveService {
                     status: true,
                     category: true,
                     order: true,
-                    users: true,
+                    users: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            status: true,
+                            id_author: true
+                        }
+                    },
                     created_At: true,
                 }
             });

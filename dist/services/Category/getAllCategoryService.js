@@ -32,7 +32,15 @@ class GetAllCategoryService {
                     description: true,
                     created_At: true,
                     id_author: true,
-                    users: true,
+                    users: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            status: true,
+                            id_author: true
+                        }
+                    },
                 },
             });
             // Contagem total de categorias (para saber quantas páginas existem)
