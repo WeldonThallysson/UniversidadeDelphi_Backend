@@ -43,6 +43,7 @@ class GetDetailsClassService {
             status: true,
             category: true,
             courses: true,
+            users:true,
             created_At: true,
         }
       });

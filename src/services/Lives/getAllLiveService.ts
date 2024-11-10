@@ -52,6 +52,7 @@ class GetAllLiveService {
         status: true,
         category: true,
         order:true,
+        users:true,
         created_At: true,
       },
     });

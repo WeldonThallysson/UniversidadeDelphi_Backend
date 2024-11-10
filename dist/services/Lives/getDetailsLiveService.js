@@ -49,6 +49,7 @@ class GetDetailsLiveService {
                     status: true,
                     category: true,
                     order: true,
+                    users: true,
                     created_At: true,
                 }
             });

@@ -40,6 +40,7 @@ class GetDetailsCourseService {
                     urlImage: true,
                     status: true,
                     category: true,
+                    users: true,
                     created_At: true
                 }
             });

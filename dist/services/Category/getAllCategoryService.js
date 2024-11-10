@@ -31,6 +31,8 @@ class GetAllCategoryService {
                     status: true,
                     description: true,
                     created_At: true,
+                    id_author: true,
+                    users: true,
                 },
             });
             // Contagem total de categorias (para saber quantas páginas existem)

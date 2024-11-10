@@ -33,6 +33,7 @@ class GetDetailsCategoryService {
         description: true,
         created_At: true,
         id_author: true,
+        users:true,
       },
     });
 

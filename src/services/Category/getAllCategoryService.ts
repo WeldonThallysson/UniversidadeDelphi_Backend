@@ -30,6 +30,8 @@ class GetAllCategoryService {
         status: true,
         description: true,
         created_At: true,
+        id_author: true,
+        users:true,
       },
     });
 
